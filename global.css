@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+
+:root {
+  /* fonts */
+  --font-source-serif-pro: "Source Serif Pro";
+  --font-helvetica: Helvetica;
+
+  /* Colors */
+  --color-white: #fff;
+
+  /* Border radiuses */
+  --br-31xl: 50px;
+}
