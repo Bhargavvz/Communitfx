@@ -3,7 +3,7 @@ import { StyleSheet, View, Image, Text, Pressable } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { FontFamily, Border, FontSize, Color } from "../GlobalStyles";
-
+//new commit by Shiva
 const SignUp = () => {
   const navigation = useNavigation();
 
