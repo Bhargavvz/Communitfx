@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Communitfx</title>
+    <link rel="stylesheet" href="edit.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="back-btn">&larr;</button>
+            <h1>Edit profile</h1>
+        </header>
+        <div class="form-container">
+            <form>
+                <div class="input-group">
+                    <label for="full-name">Full name</label>
+                    <input type="text" id="full-name" placeholder="Puerto Rico" required>
+                </div>
+                <div class="input-group">
+                    <label for="nick-name">Nick name</label>
+                    <input type="text" id="nick-name" placeholder="puerto_rico" required>
+                </div>
+                <div class="input-group">
+                    <label for="label">Label</label>
+                    <input type="text" id="label" placeholder="youremail@domain.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="phone-number">Phone number</label>
+                    <div class="phone-input">
+                        <img src="image/call.png" alt="Flag">
+                        <input type="tel" id="phone-number" placeholder="123-456-7890" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="country">Country</label>
+                    <select id="country" required>
+                        <option value="United States">United States</option>
+                      <option value="Canada">Canada</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Germany">Germany</option>
+                        <option value="France">France</option>
+                        <option value="India">India</option>
+                        <option value="China">China</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="Mexico">Mexico</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Russia">Russia</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="Sweden">Sweden</option>
+                        <option value="South Korea">South Korea</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Nigeria">Nigeria</option>
+                        <option value="Egypt">Egypt</option>
+                        <!-- Add other countries as needed -->
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="genre">Genre</label>
+                    <select id="genre" required>
+                       <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Non-Binary">Non-Binary</option>
+                        <option value="Other">Other</option>
+                        <!-- Add other genres as needed -->
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" placeholder="45 New Avenue, New York" required>
+                </div>
+                <button type="submit" class="submit-btn">SUBMIT</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

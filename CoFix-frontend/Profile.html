@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Communitfx</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Profile</h1>
+        </header>
+        <img src="image/profile.png" alt="Profile Picture" class="profile-pic">
+        <div class="profile-section">
+            <h2 id="profileName">Loading...</h2>
+            <p id="profileDetails">Loading...</p>
+            <button class="edit-profile-btn">Edit profile information</button>
+        </div>
+        <div class="profile-options">
+            <button class="profile-option-btn">Help & Support</button>
+            <button class="profile-option-btn">Contact us</button>
+            <button class="profile-option-btn">Privacy policy</button>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="nav-item">
+            <img src="image/home.png" alt="Home">
+            <span>Home</span>
+        </div>
+        <div class="nav-item">
+            <img src="image/placeholder.png" alt="Map">
+            <span>Map</span>
+        </div>
+        <div class="nav-item">
+            <img src="image/add.png" alt="Add">
+            <span>Add</span>
+        </div>
+        <div class="nav-item">
+            <img src="image/notice.png" alt="Notices">
+            <span>Notices</span>
+        </div>
+        <div class="nav-item">
+            <img src="image/user.png" alt="Profile">
+            <span>Profile</span>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // try {
+                const emu = localStorage.getItem('userEmail');
+                if (!emu) {
+                    console.error("No email found in local storage");
+                    alert("Need to login before");
+                    window.location.href = 'profile.html';
+                    return;
+                } else {
+                    console.log('Emailo is thie:'+emu);
+                }
+                const url = new URL('http://localhost:8000/api/profile');
+                url.searchParams.append('email', emu);
+                const response = await fetch(url, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                // const response = await fetch(`http://localhost:8000/api/profile?email=${encodeURIComponent(emu)}`, {
+                //     method: "GET",
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //     },
+                // });
+                console.log("HTTP Status Code:", response.status);
+                if (response.ok) {
+                    const profile  = await response.json();
+                    console.log("Response Data:", profile);
+                    console.log("accountProfile :" + profile.textContent);
+                    document.getElementById('profileName').textContent = profile.name;
+                    document.getElementById('profileDetails').textContent = profile.email;
+                    //`${accountData.email} | ${accountData.password}`;
+                } else {
+                    console.error("Failed to fetch profile data");
+                }
+            // } catch (error) {
+            //     console.error("Error:", error);
+            // }
+        });
+    </script>
+</body>
+</html>

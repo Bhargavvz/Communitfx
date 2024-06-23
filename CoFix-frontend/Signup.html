@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoFix Sign Up</title>
+    <link rel="stylesheet" href="Signup.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CoFix</h1>
+        </header>
+        <div class="form-container">
+            <h2>welcome;)</h2>
+            <form id="signupForm">
+                <input type="text" name="name" placeholder="name" required>
+                <input type="email" name="email" placeholder="email" required>
+                <input type="password" name="password" placeholder="password" required>
+                <input type="password" name="confirmPassword" placeholder="confirm password" required>
+                <div class="terms">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I accept the <a href="#">terms and conditions</a></label>
+                </div>
+                <button type="submit">SIGN UP</button>
+            </form>
+	  
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const name = formData.get("name");
+            const email = formData.get("email");
+            const password = formData.get("password");
+
+            try {
+                const response = await fetch("http://localhost:8000/api/signup", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams({
+                        name: name,
+                        email: email,
+                        password: password,
+                    }),
+                });
+
+                if (response.ok) {
+                    alert("Sign-up successful");
+                } else {
+                    alert("Sign-up failed");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Sign-up failed");
+            }
+        });
+    </script>
+</body>
+</html>
