@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Page</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="maps.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #map {
+            height: calc(100vh - 60px);
+            width: 100%;
+        }
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .nav-item img {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 5px;
+        }
+        .nav-item span {
+            font-size: 12px;
+            color: #004d4d;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <nav class="navbar">
+        <div class="nav-item">
+            <a href="index.html">
+                <img src="image/home.png" alt="Home">
+                <span>Home</span>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="map.html">
+                <img src="image/placeholder.png" alt="Map">
+                <span>Map</span>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="post.html">
+                <img src="image/add.png" alt="Add">
+                <span>Add</span>
+            </a>
+        </div>
+        <div class="nav-item">
+            <img src="image/notice.png" alt="Notices">
+            <span>Notices</span>
+        </div>
+        <div class="nav-item">
+            <img src="image/user.png" alt="Profile">
+            <span>Profile</span>
+        </div>
+    </nav>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([17.604461, 78.486784], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        const issues = JSON.parse(localStorage.getItem('issues')) || [];
+
+        issues.forEach(issue => {
+            const { issueName, description, location, image } = issue;
+            L.marker([location.lat, location.lng]).addTo(map)
+                .bindPopup(`<b>${issueName}</b><br>${description}<br><img src="${image}" style="width:100px;">`);
+        });
+    </script>
+</body>
+</html>
