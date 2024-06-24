@@ -5,14 +5,21 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 let currentMarker;
-let issues = JSON.parse(localStorage.getItem('issues')) || [];
+let issues = JSON.parse(localStorage.getItem('issues_post')) || [];
 
 // Function to add a marker to the map
 function addIssueToMap(issue) {
   const { issueName, description, location, image } = issue;
-  L.marker([location.lat, location.lng]).addTo(map)
-    .bindPopup(`<b>${issueName}</b><br>${description}<br><img src="${image}" style="width:100px;">`);
+  if (location && location.lat && location.lng) {
+    L.marker([location.lat, location.lng]).addTo(map)
+      .bindPopup(`<b>${issueName}</b><br>${description}<br><img src="${image}" style="width:100px;">`);
+  } else {
+    console.warn('Invalid issue location:', issue);
+  }
 }
+
+// Log each issue before iterating
+console.log('Issues:', issues);
 
 // Add existing issues to the map
 issues.forEach(issue => {
@@ -30,27 +37,45 @@ map.on('click', function (e) {
 
 // Handle form submission
 document.getElementById('post-button').addEventListener('click', function () {
+
+  const email = localStorage.getItem('userEmail');
+  const benefitType = "Community Problem";
+  const schemeName = "Get from localStorage";
   const issueName = document.getElementById('issue-name').value;
   const description = document.getElementById('activity-description').value;
+  console.log("Location log:" , document.getElementById('location').value);
   const location = JSON.parse(document.getElementById('location').value);
   const image = document.getElementById('photo-preview').src;
 
-  const issue = { issueName, description, location, image };
+  const issue = { email,benefitType,issueName, description, location, image };
 
-  issues.push(issue);
-  localStorage.setItem('issues', JSON.stringify(issues));
-  
-  addIssueToMap(issue);
-
-  alert('Issue added successfully!');
-  document.getElementById('issue-name').value = '';
-  document.getElementById('activity-description').value = '';
-  document.getElementById('location').value = '';
-  document.getElementById('photo-preview').src = 'https://via.placeholder.com/100';
-  if (currentMarker) {
-    map.removeLayer(currentMarker);
-    currentMarker = null;
-  }
+  // Send issue to the backend
+  fetch('http://localhost:8000/api/profile/issues/add', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(issue)
+  })
+  .then(response => response.text()) // Updated to handle plain text response
+  .then(data => {
+    console.log('Success:', data);
+    issues.push(issue);
+    localStorage.setItem('issues_post', JSON.stringify(issues));
+    addIssueToMap(issue);
+    alert('Issue added successfully!');
+    document.getElementById('issue-name').value = '';
+    document.getElementById('activity-description').value = '';
+    document.getElementById('location').value = '';
+    document.getElementById('photo-preview').src = 'https://via.placeholder.com/100';
+    if (currentMarker) {
+      map.removeLayer(currentMarker);
+      currentMarker = null;
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 });
 
 // Handle photo upload

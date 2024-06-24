@@ -9,11 +9,11 @@
 <body>
     <div class="container">
         <header>
-            <button class="back-btn">&larr;</button>
+            <button class="back-btn" onclick="window.history.back();">&larr;</button>
             <h1>Edit profile</h1>
         </header>
         <div class="form-container">
-            <form>
+            <form id="edit-profile-form">
                 <div class="input-group">
                     <label for="full-name">Full name</label>
                     <input type="text" id="full-name" placeholder="Puerto Rico" required>
@@ -57,7 +57,6 @@
                         <option value="Argentina">Argentina</option>
                         <option value="Nigeria">Nigeria</option>
                         <option value="Egypt">Egypt</option>
-                        <!-- Add other countries as needed -->
                     </select>
                 </div>
                 <div class="input-group">
@@ -67,7 +66,6 @@
                         <option value="Female">Female</option>
                         <option value="Non-Binary">Non-Binary</option>
                         <option value="Other">Other</option>
-                        <!-- Add other genres as needed -->
                     </select>
                 </div>
                 <div class="input-group">
@@ -78,5 +76,79 @@
             </form>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const email = localStorage.getItem('userEmail');
+            if (!email) {
+                console.error("No email found in local storage");
+                return;
+            }
+
+            const url = new URL('http://localhost:8000/api/profile');
+            url.searchParams.append('email', email);
+
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer your-token-here'
+                }
+            });
+            console.log("ProfileEdit HTTP Status Code:", response.status);
+            if (response.ok) {
+                const profile = await response.json();
+                console.log("Response profie", profile);
+
+                document.getElementById('full-name').value = profile.name;
+                document.getElementById('nick-name').value = profile.nickName;
+                document.getElementById('label').value = profile.email;
+                document.getElementById('phone-number').value = profile.phoneNumber;
+                document.getElementById('country').value = profile.country;
+                document.getElementById('genre').value = profile.gender;
+                document.getElementById('address').value = profile.address;
+            }  else{
+                throw new Error('Network response was not ok.');
+            }
+
+            document.getElementById('edit-profile-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const updatedProfile = {
+                    email: document.getElementById('label').value,
+                    name: document.getElementById('full-name').value,
+                    nickName: document.getElementById('nick-name').value,
+                    phoneNumber: document.getElementById('phone-number').value,
+                    country: document.getElementById('country').value,
+                    gender: document.getElementById('genre').value,
+                    address: document.getElementById('address').value
+                };
+                console.log("Updated profile:" + updatedProfile);
+                fetch('http://localhost:8000/api/profile/update', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer your-token-here'
+                    },
+                    body: JSON.stringify(updatedProfile)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error('Network response was not ok.');
+                        }
+                    })
+                    .then(data => {
+                        console.log('Profile updated successfully:', data);
+                        alert("Profile details updated successufully");
+                        console.log("Go to Profile page");
+                        window.location.href = 'profile.html';
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                    });
+            });
+        });
+    </script>			
 </body>
 </html>

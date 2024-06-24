@@ -25,27 +25,37 @@
         </main>
         <nav class="navbar">
             <div class="nav-item">
-                <img src="image/home.png" alt="Home">
-                <span>Home</span>
+                <a href="home.html"><img src="image/home.png" alt="Home">
+				<span>Home</span></a>
             </div>
             <div class="nav-item">
-                <img src="image/placeholder.png" alt="Map">
-                <span>Map</span>
+                <a href="maps.html"><img src="image/placeholder.png" alt="Map">
+				<span>Map</span></a>
             </div>
             <div class="nav-item">
-                <img src="image/add.png" alt="Add">
-                <span>Add</span>
+                <a href="post.html"><img src="image/add.png" alt="Add">
+				<span>Add</span></a>
             </div>
             <div class="nav-item">
                 <img src="image/notice.png" alt="Notices">
-                <span>Notices</span>
+				<span>Notices</span>
             </div>
             <div class="nav-item">
-                <img src="image/user.png" alt="Profile">
-                <span>Profile</span>
+                <a href="Profile.html"><img src="image/user.png" alt="Add">
+				<span>Profile</span></a>
             </div>
         </nav>
     </div>
-    <script src="scripts.js"></script>
+    <script>
+            document.querySelectorAll('.issue-button').forEach(button => {
+            button.addEventListener('click', function() {
+				console.log("Selected scheme: ", this.textContent.trim());
+                localStorage.setItem('selectedScheme', this.textContent.trim());
+                
+				console.log("Redirecting to issue post page");
+                window.location.href = 'post1.html';
+            });
+        });
+    </script>
 </body>
 </html>

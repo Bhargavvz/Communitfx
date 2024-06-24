@@ -23,33 +23,38 @@
         <div class="services">
             <h3>services</h3>
             <div class="service-icons">
-                <button class="service-icon">Community Problem</button>
-                <button class="service-icon">Government Schemes</button>
+                <button class="service-icon" id="community-problems">Community Problem</button>
+                <button class="service-icon" id="government-schemes">Government Schemes</button>
             </div>
         </div>
         <nav class="navbar">
             <div class="nav-item">
-                <img src="image/home.png" alt="Home">
-                <span>Home</span>
+                <a href="home.html"><img src="image/home.png" alt="Home"><span>Home</span></a>
             </div>
             <div class="nav-item">
-                <img src="image/placeholder.png" alt="Map">
-                <span>Map</span>
+                <a href="maps.html"><img src="image/placeholder.png" alt="Map"><span>Map</span></a>
             </div>
             <div class="nav-item">
-                <img src="image/add.png" alt="Add">
-                <span>Add</span>
+                <a href="post.html"><img src="image/add.png" alt="Add"><span>Add</span></a>
             </div>
             <div class="nav-item">
-                <img src="image/notice.png" alt="Notices">
-                <span>Notices</span>
+                <img src="image/notice.png" alt="Notices"><span>Notices</span>
             </div>
             <div class="nav-item">
-                <img src="image/user.png" alt="Profile">
-                <span>Profile</span>
+                <a href="Profile.html"><img src="image/user.png" alt="Add"><span>Profile</span></a>
             </div>
         </nav>
     </div>
-    <script src="scripts.js"></script>
+    <script>
+        document.getElementById('community-problems').addEventListener('click', function() {
+            console.log("Go to Community problem page");
+            window.location.href = 'list1.html';
+        });
+
+        document.getElementById('government-schemes').addEventListener('click', function() {
+            console.log("Go to Government Schemes page");
+            window.location.href = 'list2.html';
+        });
+    </script>
 </body>
 </html>

@@ -15,7 +15,7 @@
         <div class="profile-section">
             <h2 id="profileName">Loading...</h2>
             <p id="profileDetails">Loading...</p>
-            <button class="edit-profile-btn">Edit profile information</button>
+            <button class="edit-profile-btn" id="edit-profile">Edit profile information</button>
         </div>
         <div class="profile-options">
             <button class="profile-option-btn">Help & Support</button>
@@ -25,24 +25,19 @@
     </div>
     <nav class="navbar">
         <div class="nav-item">
-            <img src="image/home.png" alt="Home">
-            <span>Home</span>
+            <a href="home.html"><img src="image/home.png" alt="Home"><span>Home</span></a>
         </div>
         <div class="nav-item">
-            <img src="image/placeholder.png" alt="Map">
-            <span>Map</span>
+            <a href="maps.html"><img src="image/placeholder.png" alt="Map"><span>Map</span></a>
         </div>
         <div class="nav-item">
-            <img src="image/add.png" alt="Add">
-            <span>Add</span>
+            <a href="post.html"><img src="image/add.png" alt="Add"><span>Add</span></a>
         </div>
         <div class="nav-item">
-            <img src="image/notice.png" alt="Notices">
-            <span>Notices</span>
+            <img src="image/notice.png" alt="Notices"><span>Notices</span>
         </div>
         <div class="nav-item">
-            <img src="image/user.png" alt="Profile">
-            <span>Profile</span>
+            <a href="Profile.html"><img src="image/user.png" alt="Add"><span>Profile</span></a>
         </div>
     </nav>
 
@@ -66,20 +61,13 @@
                         "Content-Type": "application/json",
                     },
                 });
-                // const response = await fetch(`http://localhost:8000/api/profile?email=${encodeURIComponent(emu)}`, {
-                //     method: "GET",
-                //     headers: {
-                //         "Content-Type": "application/json",
-                //     },
-                // });
                 console.log("HTTP Status Code:", response.status);
                 if (response.ok) {
                     const profile  = await response.json();
                     console.log("Response Data:", profile);
-                    console.log("accountProfile :" + profile.textContent);
+        
                     document.getElementById('profileName').textContent = profile.name;
-                    document.getElementById('profileDetails').textContent = profile.email;
-                    //`${accountData.email} | ${accountData.password}`;
+                    document.getElementById('profileDetails').textContent = `${profile.email} | PhNo: ${profile.phoneNumber}`; //profile.email;
                 } else {
                     console.error("Failed to fetch profile data");
                 }
@@ -87,6 +75,11 @@
             //     console.error("Error:", error);
             // }
         });
+        document.getElementById('edit-profile').addEventListener('click', function() {
+            console.log("Go to Edit page");
+            window.location.href = 'edit.html';
+        });
+
     </script>
 </body>
 </html>

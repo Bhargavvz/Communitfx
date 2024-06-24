@@ -38,79 +38,44 @@
         </div>
     </div>
     <script>
-        document.getElementById('loginForm').addEventListener('submit',async function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             console.log("Form submitted");
 
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            
-            console.log('Email:', email); // Debugging log
-            console.log('Password:', password); // Debugging log
 
+            console.log('Email:', email); 
+            console.log('Password:', password); 
+            const response = await fetch("http://localhost:8000/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({
+                    email: email,
+                    password: password,
+                }),
+            });
+            console.log("Received response successfully", response.status);
+            localStorage.setItem('userEmail', email);
+            console.log("Email is stored in localstorage");
+            if (response.ok) {
+                const responseData = await response.text();
+                console.log("Response ok: " + responseData);
+                alert("Login Successful");
+                localStorage.setItem('accountData', JSON.stringify(responseData));
+                window.location.href = 'profile.html';
+            } else {
+                const responseData = await response.text();
+                console.log("Response not ok: ", responseData);
+                alert("Login failed");
+            }
+        });
 
-            // fetch('http://localhost:8000/api/login', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/x-www-form-urlencoded',
-            //     },
-            //     body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
-            // })
-            // .then(response => response.text())
-            // .then(data => {
-            //     alert(data);
-            // })
-            // .catch(error => {
-            //     console.error('Error:', error);
-            // });
-			
-		//  try {
-
-
-
-                // const response =  await fetch("http://localhost:8000/api/login", {
-                //     method: "POST",
-                //     headers: {
-                //         "Content-Type": "application/x-www-form-urlencoded",
-                //     },
-                //     body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
-                // });
-
-                const response = await fetch("http://localhost:8000/api/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: new URLSearchParams({
-                        email: email,
-                        password: password,
-                    }),
-                });
-                console.log("Received response successfully",response.status);
-                //console.log(response.json)
-                // const accountData = response.json();
-                // console.log("Response:"+accountData)
-                localStorage.setItem('userEmail', email);
-                console.log("Emailo is stored in localstorage");
-
-                if (response.ok) {
-                    const responseData = await response.text();
-                    console.log("Response ok: "+responseData);
-                    alert("Login Successful");
-                    localStorage.setItem('accountData', JSON.stringify(responseData));
-                    window.location.href = 'profile.html';
-                } else {
-                    const responseData = await response.text();
-                    console.log("Response not ok: " , responseData);
-                    alert("Login failed");
-                }
-
-
-
-            // } catch (error) {
-            //     console.error("Error:"+ error);
-            //     alert("Login failed");
-            // }
+        document.querySelector('.signup-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'signup.html';
         });
     </script>
 </body>
