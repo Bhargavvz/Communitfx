@@ -16,6 +16,11 @@ body {
     position: relative;
 }
 
+.navbar a{
+    text-decoration: none;
+    color: black;
+}
+
 .header {
     background-color: #a8e3e3;
     padding: 20px;

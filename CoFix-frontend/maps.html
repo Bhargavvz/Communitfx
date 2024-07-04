@@ -47,7 +47,7 @@
     <div id="map"></div>
     <nav class="navbar">
         <div class="nav-item">
-            <a href="index.html">
+            <a href="home.html">
                 <img src="image/home.png" alt="Home">
                 <span>Home</span>
             </a>
@@ -59,7 +59,7 @@
             </a>
         </div>
         <div class="nav-item">
-            <a href="post.html">
+            <a href="list1.html">
                 <img src="image/add.png" alt="Add">
                 <span>Add</span>
             </a>
@@ -69,8 +69,10 @@
             <span>Notices</span>
         </div>
         <div class="nav-item">
+            <a href="Profile.html">
             <img src="image/user.png" alt="Profile">
             <span>Profile</span>
+        </a>
         </div>
     </nav>
 
@@ -81,7 +83,7 @@
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        const issues = JSON.parse(localStorage.getItem('issues')) || [];
+        const issues = JSON.parse(localStorage.getItem('issues_post')) || [];
 
         issues.forEach(issue => {
             const { issueName, description, location, image } = issue;

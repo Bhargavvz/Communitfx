@@ -16,10 +16,11 @@ header {
     margin-bottom: 20px;
 }
 
-header h1 {
-    font-size: 36px;
-    color: #004d4d;
+header #logo {
+    width: 250px;
+    height: 90px;
 }
+
 
 .form-container {
     background: linear-gradient(to bottom, #a8e3e3, #79d3d3);

@@ -19,9 +19,15 @@ header {
 }
 
 header h1 {
-    margin: 0;
+    margin: 50;
     font-size: 24px;
     color: white;
+    font-weight: 700;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
 }
 
 .logo {
@@ -32,8 +38,8 @@ header h1 {
 }
 
 .logo img {
-    width: 80px;
-    height: 80px;
+    width: 150px;
+    height: 150px;
 }
 
 .logo h2 {
@@ -57,6 +63,8 @@ header h1 {
     padding: 10px;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
 .report-section p {
@@ -64,6 +72,12 @@ header h1 {
     font-size: 18px;
     color: #004d4d;
     font-style: italic;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.fade {
+    opacity: 0;
 }
 
 .services {
@@ -114,6 +128,7 @@ header h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center; /* Center align text */
 }
 
 .nav-item img {

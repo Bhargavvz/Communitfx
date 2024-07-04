@@ -17,6 +17,11 @@ body {
     padding: 20px;
 }
 
+.navbar a{
+    text-decoration: none;
+    color: black;
+}
+
 header {
     width: 100%;
     text-align: left;
