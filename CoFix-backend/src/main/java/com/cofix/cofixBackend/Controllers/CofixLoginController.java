@@ -2,13 +2,15 @@ package com.cofix.cofixBackend.Controllers;
 
 import com.cofix.cofixBackend.Models.MyPost;
 import com.cofix.cofixBackend.Models.MyUser;
+import com.cofix.cofixBackend.Services.AuthService;
+import com.cofix.cofixBackend.Services.CofixService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @Slf4j
@@ -16,34 +18,20 @@ import java.util.Map;
 @RequestMapping("/api")
 public class CofixLoginController {
 
-    Map<String,MyUser> users;
-    Map<String,MyPost> governmentSchemePosts;
-    Map<String,MyPost> communityPosts;
+    @Autowired
+    AuthService authService;
+
+    @Autowired
+    CofixService cofixService;
 
     public CofixLoginController(){
-
-        // Add a test user
-        users = new HashMap<>();
-        users.put("admin@admin.com", new MyUser("admin","admin@admin.com","admin"));
-        users.put("user@example.com", new MyUser("Testuser", "user@example.com","password","testy","1234567890","India","Male","Telangana"));
-
-        // Add few community posts
-        communityPosts = new HashMap<>();
-        communityPosts.put("user@example.com", new MyPost("user@example.com","Community Problem",null,null,null,"electricity/streetlights","Fix power supply at a this location", null, "Need new street light"));
-
-        //Add few government Scheme posts
-        governmentSchemePosts = new HashMap<>();
-        governmentSchemePosts.put("user@example.com", new MyPost("user@example.com","Government Schemes","Rythu Bandhu","Rythu Bandhu description",null,"electricity/streetlights","Fix power supply at a this location", null, "Need new street light"));
     }
 
-
-    @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
         log.info("Got a request! Email:" + email +" Password:" + password);
-        log.info("All current Users:"+ users);
 
-        if (users.containsKey(email) && users.get(email).getPassword().equals(password)) {
+        if (authService.loginUser(email,password)) {
             log.info("User authenticated successfully");
             return ResponseEntity.ok("Login successful");
         } else {
@@ -52,36 +40,35 @@ public class CofixLoginController {
         }
     }
 
-    @CrossOrigin
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@RequestParam String name, @RequestParam String email, @RequestParam String password) {
         log.info("Signup information has been received successfully:");
-        MyUser newUser = new MyUser(name,email,password);
-        users.put(email,newUser);
-        log.info("New User added "+ newUser);
+        authService.registerUser(new MyUser(name,email,password));
+        log.info("New User added "+ email);
         return ResponseEntity.ok("Sign-up successful");
     }
 
-    @CrossOrigin
     @GetMapping("/profile")
     public ResponseEntity<MyUser> getProfileData(String email) {
         log.info("Profile API: Sending profile information with email:" + email);
-        if(users.containsKey(email)){
-            log.info("User found :" + users.get(email));
-            return ResponseEntity.ok(users.get(email));
+        Optional<MyUser> user = cofixService.getUsersRepo().findById(email);
+        if(user.isPresent()){
+            log.info("User found :" + user.get());
+            return ResponseEntity.ok(user.get());
         } else{
             log.info("User not found");
             return ResponseEntity.notFound().build();
         }
     }
 
-    @CrossOrigin
-    @PostMapping("/editProfile")
+    @PostMapping("/profile/edit")
     public ResponseEntity<MyUser> setProfileData(String email) {
         log.info("Profile API: Sending profile information with email:" + email);
-        if(users.containsKey(email)){
-            log.info("User found :" + users.get(email));
-            return ResponseEntity.ok(users.get(email));
+        Optional<MyUser> user = cofixService.getUsersRepo().findById(email);
+        if(user.isPresent()){
+            log.info("User found :" + user);
+            log.info("Updating info : " + user.get());
+            return ResponseEntity.ok(user.get());
         } else{
             log.info("User not found");
             return ResponseEntity.notFound().build();
@@ -90,12 +77,20 @@ public class CofixLoginController {
 
     @CrossOrigin
     @PostMapping("/profile/update")
-    public ResponseEntity<MyUser> updateProfile(@RequestBody MyUser profile) {
-        log.info("Updating profile for user:" + profile.getEmail());
-        MyUser updatedProfile = users.put(profile.getEmail(),profile);
-        log.info("Updated profile = "+ users.get(profile.getEmail()));
+    public ResponseEntity<MyUser> updateProfile(@RequestBody MyUser updatedProfile) {
+        log.info("Updating profile for user:" + updatedProfile.getEmail());
+        Optional<MyUser> profile = cofixService.getUsersRepo().findById(updatedProfile.getEmail());
+        if(profile.isPresent()) {
+            log.info("Old profile for user: " + profile.get());
+            log.info("Updated profile = " + updatedProfile);
+            updatedProfile.setPassword(profile.get().getPassword());
+            cofixService.getUsersRepo().save(updatedProfile);
+            return ResponseEntity.ok(profile.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
 
-        return ResponseEntity.ok(profile);
+
     }
 
     @CrossOrigin
@@ -104,15 +99,29 @@ public class CofixLoginController {
         // Save the issue to the database or in-memory store
         // For now, just print it to the console
         log.info("Issue to be added :" + issuePost);
-        return new ResponseEntity<>(issuePost, HttpStatus.CREATED);
+
+        MyPost addedPost = cofixService.addIssuePost(issuePost);
+        if(addedPost!=null){
+            log.info("Successfully added issue post");
+        } else {
+            log.error("Failed to add issue post");
+        }
+        log.info("New community post added for user: "+ addedPost);
+        return new ResponseEntity<>(addedPost, HttpStatus.CREATED);
     }
 
     @CrossOrigin
     @PostMapping("/profile/schemes/add")
-    public ResponseEntity<String> addScheme(@RequestBody MyPost schemePost) {
-        // Save the issue to the database or in-memory store
-        // For now, just print it to the console
-        log.info("Scheme post to be added :" + schemePost);
-        return new ResponseEntity<>("Issue added successfully", HttpStatus.CREATED);
+    public ResponseEntity<MyPost> addScheme(@RequestBody MyPost schemePost) {
+
+        log.info("Scheme to be added :" + schemePost);
+        MyPost addedPost = cofixService.addSchemePost(schemePost);
+        if(addedPost!=null){
+            log.info("Successfully added scheme post");
+        } else {
+            log.error("Failed to add scheme post");
+        }
+        log.info("New community post added for user: "+ addedPost);
+        return new ResponseEntity<>(addedPost, HttpStatus.CREATED);
     }
 }
