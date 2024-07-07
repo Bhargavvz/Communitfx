@@ -69,5 +69,16 @@
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="post.js"></script>
+    <script >
+            document.addEventListener('DOMContentLoaded', function() {
+            const issueName = localStorage.getItem('selectedIssue');
+            if (issueName) {
+                document.getElementById('issue-name').value = issueName;
+            } else {
+                alert('No scheme selected');
+                window.location.href = 'list2.html'; // Redirect back if no scheme selected
+            }
+        });
+    </script>
 </body>
 </html>

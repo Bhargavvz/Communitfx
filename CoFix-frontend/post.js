@@ -5,11 +5,40 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 let currentMarker;
-let issues = JSON.parse(localStorage.getItem('issues_post')) || [];
+
+// Get Issues of User:
+async function getIssuesOfUser(email){
+  const url = new URL('http://localhost:8000/api/profile/issues');
+  url.searchParams.append('email', email);
+    const issues_response = await fetch(url, {
+          method: "GET",
+          headers: {
+              "Content-Type": "application/json",
+              //"Content-Type": "multipart/form-data",
+          },
+    });
+    console.log("+++++++++++++++++++HTTP Status Code of Issues of User:", issues_response.status);
+    if (issues_response.ok) {
+      const user_issues  = await issues_response.json();
+      console.log("Logging user issues Data:", user_issues);
+      user_issues.forEach(userIssue => {
+        console.log("logEach Issue i:" , userIssue);
+        addIssueToMap(userIssue);
+      });
+    } else {
+      console.error("Failed to fetch profile data");
+    }
+}
+
+
+
+
 
 // Function to add a marker to the map
 function addIssueToMap(issue) {
+  console.log("=======================Logging each issue: ", issue);
   const { issueName, description, location, image } = issue;
+  console.log("Trying to log issueName: " + location);
   if (location && location.lat && location.lng) {
     L.marker([location.lat, location.lng]).addTo(map)
       .bindPopup(`<b>${issueName}</b><br>${description}<br><img src="${image}" style="width:100px;">`);
@@ -18,13 +47,20 @@ function addIssueToMap(issue) {
   }
 }
 
+
+getIssuesOfUser(localStorage.getItem('userEmail'));
+
+//let issues = JSON.parse(localStorage.getItem('issues_post')) || [];
+
+
+
 // Log each issue before iterating
 console.log('Issues:', issues);
 
 // Add existing issues to the map
-issues.forEach(issue => {
-  addIssueToMap(issue);
-});
+// issues.forEach(issue => {
+//   addIssueToMap(issue);
+// });
 
 // Add a marker on map click
 map.on('click', function (e) {
@@ -39,7 +75,7 @@ map.on('click', function (e) {
 document.getElementById('post-button').addEventListener('click', function () {
 
   const email = localStorage.getItem('userEmail');
-  const benefitType = "Community Problem";
+  const benefitType = "COMMUNITY_ISSUE";
   const schemeName = "Get from localStorage";
   const issueName = document.getElementById('issue-name').value;
   const description = document.getElementById('activity-description').value;
