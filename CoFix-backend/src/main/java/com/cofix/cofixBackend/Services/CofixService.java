@@ -1,5 +1,6 @@
 package com.cofix.cofixBackend.Services;
 
+import com.cofix.cofixBackend.Models.BenefitTypes;
 import com.cofix.cofixBackend.Models.Location;
 import com.cofix.cofixBackend.Models.MyPost;
 import com.cofix.cofixBackend.Models.PostPk;
@@ -15,6 +16,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,13 +37,13 @@ public class CofixService implements Ordered {
     @PostConstruct
     public void initCofix(){
 
-        if(postsRepo.findById(new PostPk("test@user.com", 1L)).equals(Optional.empty())){
+        if(postsRepo.findByEmailAndBenefitType("test@user.com",BenefitTypes.COMMUNITY_ISSUE).isEmpty()){
             log.info("Adding test@user Community Problem data");
-            postsRepo.save(new MyPost("test@user2.com",2L,"Community Problem",null,null,null,"electricity/streetlights","Fix power supply at a this location", new Location(2D,1D), "Need new street light", LocalDateTime.now()));
+            postsRepo.save(new MyPost("test@user.com",null, BenefitTypes.COMMUNITY_ISSUE,null,null,null,"electricity/streetlights","Fix power supply at a this location", new Location(2D,1D), "Need new street light", LocalDateTime.now()));
         }
-        if(postsRepo.findById(new PostPk("test@user.com", 2L)).equals(Optional.empty())){
+        if( postsRepo.findByEmailAndBenefitType("test@user.com",BenefitTypes.GOVERNMENT_SCHEME).isEmpty()){
             log.info("Adding test@user Government Schemes data");
-            postsRepo.save(new MyPost("test@user.com",2L,"Government Schemes","Rythu Bandhu","Rythu Bandhu description",null,"electricity/streetlights","Fix power supply at a this location", null, "Need new street light",LocalDateTime.now()));
+            postsRepo.save(new MyPost("test@user.com",null,BenefitTypes.GOVERNMENT_SCHEME,"Rythu Bandhu","Rythu Bandhu description",null,null,null, null, "Rythu Bandhu Description",LocalDateTime.now()));
         }
         log.info("======================= CofixService initialized =======================");
     }
@@ -58,5 +60,23 @@ public class CofixService implements Ordered {
     public MyPost addSchemePost(MyPost myPost){
         myPost.setCreateDate(LocalDateTime.now());
         return postsRepo.save(myPost);
+    }
+
+    public List<MyPost> getProfilePosts(String email) {
+        log.info("Show all posts for email: " + email);
+        List<MyPost> posts = postsRepo.findByEmail(email);
+        return posts;
+    }
+
+    public List<MyPost> getProfileIssues(String email) {
+        log.info("Show all issues for email: " + email);
+        List<MyPost> posts = postsRepo.findByEmailAndBenefitType(email,BenefitTypes.COMMUNITY_ISSUE);
+        return posts;
+    }
+
+    public List<MyPost> getProfileSchemes(String email) {
+        log.info("Show all schemes for email: " + email);
+        List<MyPost> posts = postsRepo.findByEmailAndBenefitType(email,BenefitTypes.GOVERNMENT_SCHEME);
+        return posts;
     }
 }

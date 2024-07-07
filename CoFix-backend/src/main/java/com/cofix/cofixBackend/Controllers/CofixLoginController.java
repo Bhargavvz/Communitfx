@@ -1,5 +1,6 @@
 package com.cofix.cofixBackend.Controllers;
 
+import com.cofix.cofixBackend.Models.BenefitTypes;
 import com.cofix.cofixBackend.Models.MyPost;
 import com.cofix.cofixBackend.Models.MyUser;
 import com.cofix.cofixBackend.Services.AuthService;
@@ -35,7 +36,7 @@ public class CofixLoginController {
             log.info("User authenticated successfully");
             return ResponseEntity.ok("Login successful");
         } else {
-            log.info("User not authenticated successfully");
+            log.info("User not authenticated failed");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
     }
@@ -43,10 +44,17 @@ public class CofixLoginController {
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@RequestParam String name, @RequestParam String email, @RequestParam String password) {
         log.info("Signup information has been received successfully:");
-        authService.registerUser(new MyUser(name,email,password));
-        log.info("New User added "+ email);
-        return ResponseEntity.ok("Sign-up successful");
+        Optional<MyUser> user = cofixService.getUsersRepo().findById(email);
+        if(user.isPresent()){
+            log.error("Cant create user, existing email");
+            return ResponseEntity.badRequest().body("User already exists");
+        } else {
+            authService.registerUser(new MyUser(name, email, password));
+            log.info("New User added " + email);
+            return ResponseEntity.ok("Sign-up successful");
+        }
     }
+
 
     @GetMapping("/profile")
     public ResponseEntity<MyUser> getProfileData(String email) {
@@ -61,19 +69,19 @@ public class CofixLoginController {
         }
     }
 
-    @PostMapping("/profile/edit")
-    public ResponseEntity<MyUser> setProfileData(String email) {
-        log.info("Profile API: Sending profile information with email:" + email);
-        Optional<MyUser> user = cofixService.getUsersRepo().findById(email);
-        if(user.isPresent()){
-            log.info("User found :" + user);
-            log.info("Updating info : " + user.get());
-            return ResponseEntity.ok(user.get());
-        } else{
-            log.info("User not found");
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @PostMapping("/profile/edit")
+//    public ResponseEntity<MyUser> setProfileData(String email) {
+//        log.info("Profile API: Sending profile information with email:" + email);
+//        Optional<MyUser> user = cofixService.getUsersRepo().findById(email);
+//        if(user.isPresent()){
+//            log.info("User found :" + user);
+//            log.info("Updating info : " + user.get());
+//            return ResponseEntity.ok(user.get());
+//        } else{
+//            log.info("User not found");
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
     @CrossOrigin
     @PostMapping("/profile/update")
@@ -87,11 +95,61 @@ public class CofixLoginController {
             cofixService.getUsersRepo().save(updatedProfile);
             return ResponseEntity.ok(profile.get());
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
 
 
     }
+
+    @CrossOrigin
+    @GetMapping("/profile/posts")
+    public ResponseEntity<List<MyPost>> showAllPosts(String email) {
+        List<MyPost> posts = cofixService.getProfilePosts(email);
+        if(!posts.isEmpty()) {
+            log.info("Get All posts for user: " + posts);
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        } else {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @GetMapping("/issues")
+    public ResponseEntity<List<MyPost>> getAllCommunityIssues(String benefitType) {
+        List<MyPost> allCommunityIssues = cofixService.getPostsRepo().findByBenefitType(BenefitTypes.valueOf(benefitType));
+        if(!allCommunityIssues.isEmpty()) {
+            log.debug("Get All Community: " + allCommunityIssues);
+            return new ResponseEntity<>(allCommunityIssues, HttpStatus.OK);
+        } else {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    //@CrossOrigin
+    @GetMapping("/profile/issues")
+    public ResponseEntity<List<MyPost>> showAllIssues(String email) {
+
+        List<MyPost> issues = cofixService.getProfileIssues(email);
+        if(!issues.isEmpty()) {
+            log.debug("Get All issues for user: " + issues);
+            return new ResponseEntity<>(issues, HttpStatus.OK);
+        } else {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @CrossOrigin
+    @GetMapping("/profile/schemes")
+    public ResponseEntity<List<MyPost>> showAllSchemes(String email) {
+
+        List<MyPost> schemes = cofixService.getProfileSchemes(email);
+        if(!schemes.isEmpty()) {
+            log.debug("Get All schemes for user: " + schemes);
+            return new ResponseEntity<>(schemes, HttpStatus.OK);
+        } else {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
 
     @CrossOrigin
     @PostMapping("/profile/issues/add")

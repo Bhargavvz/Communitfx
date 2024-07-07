@@ -27,8 +27,9 @@ public class MyPost{
     Long postId;
 
     @Column(name = "benefit_type")
-    String benefitType;
-//    String benefitName;
+    @Enumerated(EnumType.STRING)
+    BenefitTypes benefitType;
+
     @Column(name = "scheme_name")
     String schemeName;
 
@@ -57,7 +58,7 @@ public class MyPost{
     @Column(name = "create_date")
     LocalDateTime createDate;
 
-    public MyPost(String email, String benefitType, String schemeName, String description, String image, String issueName, String activityDescription, Location location, String comment) {
+    public MyPost(String email, BenefitTypes benefitType, String schemeName, String description, String image, String issueName, String activityDescription, Location location, String comment) {
         this.email = email;
         this.benefitType = benefitType;
         this.schemeName = schemeName;
