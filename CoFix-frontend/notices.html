@@ -35,7 +35,35 @@
         </nav>
     </div>
     <script>
-        const issues = JSON.parse(localStorage.getItem('issues_post')) || [];
+        //const issues = JSON.parse(localStorage.getItem('issues_post')) || [];
+        const issues =[];
+
+        async function getIssuesOfUser(email){
+  const url = new URL('http://localhost:8000/api/profile/issues');
+  url.searchParams.append('email', email);
+    const issues_response = await fetch(url, {
+          method: "GET",
+          headers: {
+              "Content-Type": "application/json",
+              //"Content-Type": "multipart/form-data",
+          },
+    });
+    console.log("+++++++++++++++++++HTTP Status Code of Issues of User:", issues_response.status);
+    if (issues_response.ok) {
+      const user_issues  = await issues_response.json();
+      console.log("Logging user issues Data:", user_issues);
+      user_issues.forEach(userIssue => {
+        console.log("logEach Issue i:" , userIssue);
+        issues.push(userIssue);
+        //addIssueToMap(userIssue);
+      });
+    } else {
+      console.error("Failed to fetch profile data");
+    }
+    renderNotices();
+}
+
+
 
         function toggleDetails(element) {
             const details = element.querySelector('.notice-details');
@@ -96,7 +124,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            renderNotices();
+            getIssuesOfUser(localStorage.getItem('userEmail'));
         });
     </script>
 </body>

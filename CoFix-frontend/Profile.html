@@ -16,6 +16,7 @@
             <h2 id="profileName">Loading...</h2>
             <p id="profileDetails">Loading...</p>
             <button class="edit-profile-btn" id="edit-profile">Edit profile information</button>
+            <button class="edit-profile-btn" id="logout">Logout</button>
         </div>
         <div class="profile-options">
             <button class="profile-option-btn" onclick="window.location.href='help.html'">Help & Support</button>
@@ -78,6 +79,12 @@
         document.getElementById('edit-profile').addEventListener('click', function() {
             console.log("Go to Edit page");
             window.location.href = 'edit.html';
+        });
+
+        document.getElementById('logout').addEventListener('click', function() {
+            console.log("Logging out");
+            localStorage.removeItem('userEmail');
+            window.location.href = 'login.html';
         });
 
     </script>
