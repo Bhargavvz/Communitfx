@@ -1,10 +1,8 @@
 package com.cofix.cofixBackend.Services;
 
-import com.cofix.cofixBackend.Models.BenefitTypes;
-import com.cofix.cofixBackend.Models.Location;
-import com.cofix.cofixBackend.Models.MyPost;
-import com.cofix.cofixBackend.Models.PostPk;
+import com.cofix.cofixBackend.Models.*;
 import com.cofix.cofixBackend.Repos.PostsRepo;
+import com.cofix.cofixBackend.Repos.ReviewsRepo;
 import com.cofix.cofixBackend.Repos.UsersRepo;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -31,6 +29,8 @@ public class CofixService implements Ordered {
     PostsRepo postsRepo;
     @Autowired
     UsersRepo usersRepo;
+    @Autowired
+    ReviewsRepo reviewsRepo;
 
     public CofixService(){
     }
@@ -84,5 +84,10 @@ public class CofixService implements Ordered {
     @Transactional
     public void deletePost(Long postId) {
         postsRepo.deleteByPostId(postId);
+    }
+
+    public MyReview addReview(MyReview review){
+        review.setCreateDate(LocalDateTime.now());
+        return reviewsRepo.save(review);
     }
 }

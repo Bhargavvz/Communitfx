@@ -2,6 +2,7 @@ package com.cofix.cofixBackend.Controllers;
 
 import com.cofix.cofixBackend.Models.BenefitTypes;
 import com.cofix.cofixBackend.Models.MyPost;
+import com.cofix.cofixBackend.Models.MyReview;
 import com.cofix.cofixBackend.Models.MyUser;
 import com.cofix.cofixBackend.Services.AuthService;
 import com.cofix.cofixBackend.Services.CofixService;
@@ -201,5 +202,23 @@ public class CofixLoginController {
         }
         log.info("New community post added for user: "+ addedPost);
         return new ResponseEntity<>(addedPost, HttpStatus.CREATED);
+    }
+
+
+    @CrossOrigin
+    @PostMapping("/profile/review/add")
+    public ResponseEntity<MyReview> addIssue(@RequestBody MyReview review) {
+        // Save the issue to the database or in-memory store
+        // For now, just print it to the console
+        log.info("review to be added :" + review);
+
+        MyReview finalReview = cofixService.addReview(review);
+        if(finalReview!=null){
+            log.info("Successfully added review");
+        } else {
+            log.error("Failed to add issue post");
+        }
+        log.info("New community post added for user: "+ finalReview);
+        return new ResponseEntity<>(finalReview, HttpStatus.CREATED);
     }
 }

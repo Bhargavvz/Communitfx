@@ -108,6 +108,52 @@ ALTER SEQUENCE public.posts_post_id_seq OWNED BY public.posts.post_id;
 
 
 --
+-- TOC entry 219 (class 1259 OID 34859)
+-- Name: reviews; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.reviews (
+    review_id integer NOT NULL,
+    email text,
+    name text,
+    message text,
+    create_date timestamp with time zone
+);
+
+
+ALTER TABLE public.reviews OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 34858)
+-- Name: reviews_review_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.reviews_review_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.reviews_review_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3348 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: reviews_review_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.reviews_review_id_seq OWNED BY public.reviews.review_id;
+--
+-- TOC entry 3187 (class 2604 OID 34862)
+-- Name: reviews review_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reviews ALTER COLUMN review_id SET DEFAULT nextval('public.reviews_review_id_seq'::regclass);
+
+--
 -- TOC entry 214 (class 1259 OID 34756)
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
