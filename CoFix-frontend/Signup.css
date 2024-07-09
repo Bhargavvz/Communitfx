@@ -82,3 +82,18 @@ button {
 button:hover {
     background-color: #003333;
 }
+
+.form-container form p {
+    margin-top: 20px;
+    color: white;
+    font-size: 14px;
+}
+
+.form-container form p a {
+    color: white;
+    text-decoration: underline;
+}
+
+.form-container form p a:hover {
+    text-decoration: none;
+}
