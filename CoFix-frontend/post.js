@@ -1,4 +1,5 @@
 // Initialize the map
+let issues = []
 const map = L.map('map').setView([17.604461, 78.486784], 13);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap contributors'
@@ -55,7 +56,7 @@ getIssuesOfUser(localStorage.getItem('userEmail'));
 
 
 // Log each issue before iterating
-console.log('Issues:', issues);
+//console.log('Issues:', issues);
 
 // Add existing issues to the map
 // issues.forEach(issue => {
@@ -96,8 +97,8 @@ document.getElementById('post-button').addEventListener('click', function () {
   .then(response => response.text()) // Updated to handle plain text response
   .then(data => {
     console.log('Success:', data);
-    issues.push(issue);
-    localStorage.setItem('issues_post', JSON.stringify(issues));
+    //issues.push(issue);
+    //localStorage.setItem('issues_post', JSON.stringify(issues));
     addIssueToMap(issue);
     alert('Issue added successfully!');
     document.getElementById('issue-name').value = '';

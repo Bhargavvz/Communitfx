@@ -97,8 +97,6 @@ public class CofixLoginController {
         } else {
             return ResponseEntity.badRequest().build();
         }
-
-
     }
 
     @CrossOrigin
@@ -166,6 +164,28 @@ public class CofixLoginController {
         }
         log.info("New community post added for user: "+ addedPost);
         return new ResponseEntity<>(addedPost, HttpStatus.CREATED);
+    }
+
+//    @CrossOrigin
+//    @DeleteMapping("/profile/issues/${postId}")
+//    public ResponseEntity<String> deleteIssue(@PathVariable Long postId) {
+//        // Save the issue to the database or in-memory store
+//        // For now, just print it to the console
+//        log.info("IssueId to be deleted :" + postId);
+//
+//        try {
+//            cofixService.deletePost(postId);
+//            return ResponseEntity.ok("Deleted Successfully");
+//        } catch (Exception e){
+//            return ResponseEntity.internalServerError().build();
+//        }
+//    }
+    @CrossOrigin
+    @DeleteMapping("/profile/issues/{postId}")
+    public ResponseEntity<Void> deleteIssues(@PathVariable Long postId) {
+        log.info("IssueId to be deleted :" + postId);
+        cofixService.deletePost(postId);
+        return ResponseEntity.noContent().build();
     }
 
     @CrossOrigin

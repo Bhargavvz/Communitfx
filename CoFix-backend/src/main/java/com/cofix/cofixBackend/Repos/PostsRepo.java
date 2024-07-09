@@ -13,5 +13,7 @@ public interface PostsRepo extends JpaRepository<MyPost, PostPk> {
     List<MyPost> findByEmail(String email);
     List<MyPost> findByEmailAndBenefitType(String email, BenefitTypes benefitType);
     List<MyPost> findByBenefitType(BenefitTypes benefitTypes);
+    void deleteByPostId(Long postId);
+
 //    MyPost findByEmailAndPostId(String email,String postId);
 }

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -78,5 +79,10 @@ public class CofixService implements Ordered {
         log.info("Show all schemes for email: " + email);
         List<MyPost> posts = postsRepo.findByEmailAndBenefitType(email,BenefitTypes.GOVERNMENT_SCHEME);
         return posts;
+    }
+
+    @Transactional
+    public void deletePost(Long postId) {
+        postsRepo.deleteByPostId(postId);
     }
 }
