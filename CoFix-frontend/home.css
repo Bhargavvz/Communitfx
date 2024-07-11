@@ -1,0 +1,143 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, #a8e3e3, #79d3d3);
+    height: 100vh;
+}
+
+header {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    margin-left: 60px;
+}
+
+header h1 {
+    margin: 50;
+    font-size: 24px;
+    color: white;
+    font-weight: 700;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.logo img {
+    width: 150px;
+    height: 150px;
+}
+
+.logo h2 {
+    margin: 10px 0 0;
+    font-size: 18px;
+    color: white;
+}
+
+.main-content {
+    width: 90%;
+    margin: 20px 0;
+}
+
+.report-section {
+    background-color: white;
+    height: 150px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.report-section p {
+    margin: 0;
+    font-size: 18px;
+    color: #004d4d;
+    font-style: italic;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.fade {
+    opacity: 0;
+}
+
+.services {
+    width: 90%;
+    text-align: center;
+}
+
+.services h3 {
+    margin: 0;
+    font-size: 18px;
+    color: black;
+}
+
+.service-icons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.service-icon {
+    width: 45%;
+    height: 120px;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #004d4d;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.service-icon:hover {
+    background-color: #e0f7fa;
+}
+
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; /* Center align text */
+}
+
+.nav-item img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.nav-item span {
+    font-size: 12px;
+    color: #004d4d;
+}
