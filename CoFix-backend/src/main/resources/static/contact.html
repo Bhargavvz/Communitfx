@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="back-button" onclick="window.location.href='Profile.html'">&#8592;</button>
+            <h1>Contact Us</h1>
+        </header>
+        <div class="main-content">
+            <section class="content-section">
+                <h2>Get in Touch</h2>
+                <p>We'd love to hear from you! Whether you have a question about our services or just want to share your thoughts, feel free to reach out.</p>
+                <form id="reviewForm" action="#" method="post">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                    
+                    <button type="submit">Send Message</button>
+                </form>
+            </section>
+        </div>
+    </div>
+    <script src="js/config.js"></script>
+    <script>
+         document.getElementById('reviewForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('message').value;
+
+            const apiBaseUrl = await getApiBaseUrl();
+            const response = await fetch(apiBaseUrl+'/api/profile/review/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    name: name,
+                    message: message,
+                }),
+            });
+
+            if (response.ok) {
+                alert('Review submitted successfully!');
+                document.getElementById('email').value = '';
+                document.getElementById('name').value = '';
+                document.getElementById('message').value = '';
+                window.location.href = 'profile.html';
+            } else {
+                alert('Failed to submit review');
+            }
+        });
+    </script>
+</body>
+</html>
