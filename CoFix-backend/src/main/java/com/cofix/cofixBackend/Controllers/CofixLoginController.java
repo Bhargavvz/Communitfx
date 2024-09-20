@@ -6,12 +6,16 @@ import com.cofix.cofixBackend.Models.MyReview;
 import com.cofix.cofixBackend.Models.MyUser;
 import com.cofix.cofixBackend.Services.AuthService;
 import com.cofix.cofixBackend.Services.CofixService;
+import com.cofix.cofixBackend.Services.EmailSenderService;
+import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -25,6 +29,9 @@ public class CofixLoginController {
 
     @Autowired
     CofixService cofixService;
+
+    @Value("${admin-email}")
+    String adminEmail;
 
     public CofixLoginController(){
     }
@@ -56,6 +63,13 @@ public class CofixLoginController {
         }
     }
 
+    @Autowired
+    private EmailSenderService emailSenderService;
+
+    @GetMapping("/hello")
+    public void sendMail() throws MessagingException {
+        cofixService.sendNotificationEmail(new MyPost("test@user.com",null,BenefitTypes.GOVERNMENT_SCHEME,"Rythu Bandhu","Rythu Bandhu description",null,null,null, null, "Rythu Bandhu Description", LocalDateTime.now()),adminEmail);
+    }
 
     @GetMapping("/profile")
     public ResponseEntity<MyUser> getProfileData(String email) {
@@ -152,7 +166,7 @@ public class CofixLoginController {
 
     @CrossOrigin
     @PostMapping("/profile/issues/add")
-    public ResponseEntity<MyPost> addIssue(@RequestBody MyPost issuePost) {
+    public ResponseEntity<MyPost> addIssue(@RequestBody MyPost issuePost) throws MessagingException {
         // Save the issue to the database or in-memory store
         // For now, just print it to the console
         log.info("Issue to be added :" + issuePost);
@@ -160,6 +174,8 @@ public class CofixLoginController {
         MyPost addedPost = cofixService.addIssuePost(issuePost);
         if(addedPost!=null){
             log.info("Successfully added issue post");
+            // cofixService.sendNotificationEmail(issuePost,adminEmail);
+            cofixService.sendNotificationEmail(issuePost,issuePost.getEmail());
         } else {
             log.error("Failed to add issue post");
         }

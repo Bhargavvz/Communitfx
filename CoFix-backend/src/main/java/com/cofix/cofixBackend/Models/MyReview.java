@@ -16,8 +16,8 @@ public class MyReview {
 
     @Id
     @Column(name = "review_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_sequence_generator")
-    @SequenceGenerator(name = "my_sequence_generator", sequenceName = "public.reviews_review_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "my_sequence_generator2")
+    @SequenceGenerator(name = "my_sequence_generator2", sequenceName = "public.reviews_review_id_seq", allocationSize = 1)
     Long reviewId;
     String name;
     String email;

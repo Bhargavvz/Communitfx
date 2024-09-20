@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notices</title>
-    <link rel="stylesheet" href="notices.css">
+    <link rel="stylesheet" href="css/notices.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
@@ -30,23 +30,18 @@
                 <a href="notices.html"><img src="image/notice.png" alt="Notices"></a><span>Notices</span>
             </div>
             <div class="nav-item">
-                <a href="Profile.html"><img src="image/user.png" alt="Add"></a><span>Profile</span>
+                <a href="profile.html"><img src="image/user.png" alt="Add"></a><span>Profile</span>
             </div>
         </nav>
     </div>
+    <script src="js/config.js"></script>
     <script>
         let issues = [];
         let initializedMaps = {};
         async function getIssuesOfUser(email) {
-            let url = "";
-            if (email != "cofixa455@gmail.com") {
-                url = new URL('http://localhost:8000/api/profile/issues');
-                url.searchParams.append('email', email);
-            } else {
-                url = new URL('http://localhost:8000/api/issues');
-                url.searchParams.append('benefitType', "COMMUNITY_ISSUE");
-            }
-    
+            const apiBaseUrl = await getApiBaseUrl();
+            const url = new URL(apiBaseUrl+'/api/profile/issues');
+            url.searchParams.append('email', email);
         
             try {
                 const issues_response = await fetch(url, {
@@ -76,7 +71,8 @@
 
         async function deleteIssueFromDB(postId) {
             try {
-                const response = await fetch(`http://localhost:8000/api/profile/issues/${postId}`, {
+                const apiBaseUrl = await getApiBaseUrl();
+                const response = await fetch(`${apiBaseUrl}/api/profile/issues/${postId}`, {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",

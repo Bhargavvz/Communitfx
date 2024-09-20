@@ -1,0 +1,91 @@
+<!-- scheme_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheme Form</title>
+    <link rel="stylesheet" href="css/post1.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-text">Scheme Form</div>
+        </header>
+        <main class="main-content">
+            <div class="form-container">
+                <form id="schemeForm" class="scheme-form">
+                    <label for="scheme-name" class="form-label">Scheme Name</label>
+                    <input type="text" id="scheme-name" class="form-input" placeholder="Scheme Name" readonly>
+                    
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="description" class="form-textarea" placeholder="Description"></textarea>
+                    
+                    <button type="submit" class="submit-button">Submit</button>
+                </form>
+            </div>
+        </main>
+        <nav class="navbar">
+            <div class="nav-item">
+                <a href="home.html"><img src="image/home.png" alt="Home">
+				</a><span>Home</span>
+            </div>
+            <div class="nav-item">
+                <a href="maps.html"><img src="image/placeholder.png" alt="Map">
+				</a><span>Map</span>
+            </div>
+            <div class="nav-item">
+                <a href="list1.html"><img src="image/add.png" alt="Add">
+				</a><span>Add</span>
+            </div>
+            <div class="nav-item">
+                <a href="notices.html"><img src="image/notice.png" alt="Notices">
+				</a><span>Notices</span>
+            </div>
+            <div class="nav-item">
+                <a href="profile.html"><img src="image/user.png" alt="Add">
+				</a><span>Profile</span>
+            </div>
+        </nav>
+    </div>
+    <script src="js/config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const schemeName = localStorage.getItem('selectedScheme');
+            if (schemeName) {
+                document.getElementById('scheme-name').value = schemeName;
+            } else {
+                alert('No scheme selected');
+                window.location.href = 'list2.html'; // Redirect back if no scheme selected
+            }
+        });
+
+        document.getElementById('schemeForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const schemeName = document.getElementById('scheme-name').value;
+            const description = document.getElementById('description').value;
+            const apiBaseUrl = await getApiBaseUrl();
+            const response = await fetch(apiBaseUrl+'/api/profile/schemes/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: localStorage.getItem('userEmail'),
+                    schemeName: schemeName,
+                    description: description,
+                }),
+            });
+
+            if (response.ok) {
+                alert('Scheme submitted successfully!');
+                document.getElementById('scheme-name').value = '';
+                document.getElementById('description').value = '';
+                window.location.href = 'home.html';
+            } else {
+                alert('Failed to submit scheme');
+            }
+        });
+    </script>
+</body>
+</html>

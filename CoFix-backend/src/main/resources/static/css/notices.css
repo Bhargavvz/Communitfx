@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, #a8e3e3, #79d3d3);
+    height: 100vh;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+header {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    margin-left: 60px;
+}
+
+header h1 {
+    margin: 50;
+    font-size: 24px;
+    color: white;
+    font-weight: 700;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+}
+
+.notices-content {
+    width: 90%;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notice-item {
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.notice-summary {
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Add relative positioning */
+}
+
+.notice-summary h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #004d4d;
+}
+
+.notice-summary p {
+    margin: 5px 0 0;
+    font-size: 16px;
+    color: #004d4d;
+}
+
+.delete-button {
+    position: absolute; /* Use absolute positioning */
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.notice-details {
+    display: none;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #004d4d;
+}
+
+.notice-details p {
+    margin: 5px 0;
+}
+
+.notice-map {
+    width: 100%;
+    height: 200px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.notice-image img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; /* Center align text */
+}
+
+.nav-item img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.nav-item span {
+    font-size: 12px;
+    color: #004d4d;
+}

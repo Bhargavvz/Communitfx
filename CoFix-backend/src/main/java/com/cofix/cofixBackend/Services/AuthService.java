@@ -5,6 +5,7 @@ import com.cofix.cofixBackend.Repos.UsersRepo;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,13 +22,16 @@ public class AuthService implements Ordered {
     private UsersRepo userRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    @Value("${admin-email}")
+    String adminEmail;
+
     @PostConstruct
     public void initCofix(){
 
         // Add admin data
-        if(userRepository.findByEmail("admin@email.com")==null) {
+        if(userRepository.findByEmail(adminEmail)==null) {
             log.info("++++++++++++++ CREATING ADMIN USER ++++++++++++++");
-            userRepository.save(new MyUser("admin", "admin@email.com", passwordEncoder.encode("admin")));
+            userRepository.save(new MyUser("admin", adminEmail, passwordEncoder.encode("admin")));
         }
         // Add test user data
         if(userRepository.findByEmail("test@user.com") == null) {

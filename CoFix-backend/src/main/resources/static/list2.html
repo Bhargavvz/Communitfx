@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Schemes</title>
+    <link rel="stylesheet" href="css/list2.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-text">government schemes</div>
+        </header>
+        <main class="main-content">
+            <div class="issue-selector">
+                <h2>Select the type of Issue</h2>
+                <button class="issue-button">Rythu Bandhu</button>
+                <button class="issue-button">Kalyana Lakshmi</button>
+                <button class="issue-button">Aasara pensions</button>
+                <button class="issue-button">Dalit Bandhu</button>
+                <button class="issue-button">T-hub</button>
+                <button class="issue-button">Rythu Bima</button>
+                <button class="issue-button">Other Schemes</button>
+            </div>
+        </main>
+        <nav class="navbar">
+            <div class="nav-item">
+                <a href="home.html"><img src="image/home.png" alt="Home">
+				</a>
+                <span>Home</span>
+            </div>
+            <div class="nav-item">
+                <a href="maps.html"><img src="image/placeholder.png" alt="Map">
+				</a>
+                <span>Map</span>
+            </div>
+            <div class="nav-item">
+                <a href="list1.html"><img src="image/add.png" alt="Add">
+				</a>
+                <span>Add</span>
+            </div>
+            <div class="nav-item">
+                <a href="notices.html"><img src="image/notice.png" alt="Notices">
+				</a>
+                <span>Notices</span>
+            </div>
+            <div class="nav-item">
+                <a href="profile.html"><img src="image/user.png" alt="Add">
+				</a>
+                <span>Profile</span>
+            </div>
+        </nav>
+    </div>
+    <script src="js/config.js"></script>
+    <script>
+            document.querySelectorAll('.issue-button').forEach(button => {
+            button.addEventListener('click', function() {
+				console.log("Selected scheme: ", this.textContent.trim());
+                localStorage.setItem('selectedScheme', this.textContent.trim());
+                
+				console.log("Redirecting to issue post page");
+                window.location.href = 'post1.html';
+            });
+        });
+    </script>
+</body>
+</html>
