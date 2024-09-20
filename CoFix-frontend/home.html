@@ -3,35 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Communitfx Home</title>
-    <!-- <link rel="stylesheet" href="home.css"> -->
-     <style>
+    <title>example</title>
+    <link rel="stylesheet" href="home.css">
+    <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            box-sizing: border-box;
-            height: auto;
-            overflow-y: auto;
-            /* height: 100%; */
-             /* Prevent scrolling */
+            /* overflow: hidden; Remove this line */
         }
+        
 
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             background: linear-gradient(to bottom, #a8e3e3, #79d3d3);
-            height: auto;
-            width: auto;
-            overflow-y: auto;
+            padding-bottom: 80px;
         }
 
         .logo {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 40px;
-            /*margin-bottom: 10px;*/
+            margin-top: 20px;
         }
 
         .logo img {
@@ -39,27 +33,21 @@
             height: 120px;
         }
 
-        .logo h2 {
-            margin: 10px 0 0 ;
-            font-size: 18px;
-            color: white;
-        }
-
         .slider {
             position: relative;
-            width: 80%;
+            width: 80%; /* Keep this width or adjust as needed */
+            max-width: 800px; /* Set a max width for larger screens */
+            margin: 40px auto; /* Center the slider horizontally */
             height: 300px; 
-            margin: 40px 0;
             overflow: hidden;
             border-radius: 10px;
+            margin-left: 790px;
         }
 
         .slides {
             display: flex;
             transition: transform 0.5s ease-in-out;
             width: calc(100% * 5); 
-            /* justify-content: center;
-             align-items: center; */
         }
 
         .slide {
@@ -78,7 +66,6 @@
         .services {
             width: 90%;
             text-align: center;
-            /*margin-top: 10px;*/
         }
 
         .services h3 {
@@ -138,11 +125,6 @@
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .navbar a {
-            text-decoration: none;
-            color: black;
-        }
-
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -162,160 +144,20 @@
         }
 
         .main-content {
-            width: 90%;
-            margin: 20px 0;
-            /*height: 70px;*/
+            width: 80%;
+            
         }
 
-        .report-section {
-            background-color: #fff;
-            height: 150px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .report-section p {
-            margin: 0;
-            font-size: 18px;
-            color: #004d4d;
-            font-style: italic;
-            opacity: 1;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .fade {
-            opacity: 0;
-        }
-
-        .notices-content {
-            width: 90%;
-            margin: 20px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .home-notices {
-            margin-top: 10px;
-            padding: 10px;
-        }
-        
-        .home-notices-sm {
-            max-width: 100px;
-            max-height: 100px;
-            border-radius: 20px;
-        }
-        
-        
-        .notice-item {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-        
-        .notice-item:last-child {
-            border-bottom: none;
-        }
-        
-        .notice-summary {
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            color: #004d4d;
-            padding-left: 10px;
-        }
-        
-        .notice-summary h2 {
-            max-width: 180px;
-        }
-        
-        .notice-summary div {
-            margin-left: 10px;
-        }
-        
-        .notice-image {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        
-        .notices-section {
-            width: 90%;
-            margin-top: 20px;
-            background-color: white;
-            border-radius: 10px;
-            padding: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-     </style>
+    </style>
 </head>
 <body>
-    <!-- <div class="container">
-        <header>
-            <h1>Home</h1>
-        </header>
-        <div class="logo">
-            <img src="image/logos.png" alt="Communitfx Logo">
-        </div>
-        <div class="slider">
-            <div class="slides">
-                <div class="slide"><img src="image/slide2.jpeg" alt="Slide 2"></div>
-                <div class="slide"><img src="image/slide3.jpeg" alt="Slide 3"></div>
-                <div class="slide"><img src="image/slide4.jpeg" alt="Slide 4"></div>
-                <div class="slide"><img src="image/slide5.jpeg" alt="Slide 5"></div>
-            </div>
-        </div>
-
-        <div class="main-content">
-            <div class="report-section">
-                <p id="quote">"Building strong communities through shared support"</p>
-            </div>
-        </div>
-        <div class="services">
-            <h3>Services</h3>
-            <div class="service-icons">
-                <button class="service-icon" id="community-problems">Community Problem</button>
-                <button class="service-icon" id="government-schemes">Government Schemes</button>
-            </div>
-        </div>
-        <div class="notices-content">
-
-        </div>
-        <nav class="navbar">
-            <div class="nav-item">
-                <a href="home.html"><img src="image/home.png" alt="Home"></a><span>Home</span>
-            </div>
-            <div class="nav-item">
-                <a href="maps.html"><img src="image/placeholder.png" alt="Map"></a><span>Map</span>
-            </div>
-            <div class="nav-item">
-                <a href="list1.html"><img src="image/add.png" alt="Add"></a><span>Add</span>
-            </div>
-            <div class="nav-item">
-                <a href="notices.html"><img src="image/notice.png" alt="Notices"></a><span>Notices</span>
-            </div>
-            <div class="nav-item">
-                <a href="Profile.html"><img src="image/user.png" alt="Add"></a><span>Profile</span>
-            </div>
-        </nav>
-    </div> -->
-
     <div class="container">
         <div class="logo">
             <img src="image/logos.png" alt="Communitfx Logo">
         </div>
         <div class="slider">
             <div class="slides">
-                <div class="slide current"><img src="image/slide2.jpeg" alt="Slide 2"></div>
+                <div class="slide"><img src="image/slide2.jpeg" alt="Slide 2"></div>
                 <div class="slide"><img src="image/slide3.jpeg" alt="Slide 3"></div>
                 <div class="slide"><img src="image/slide4.jpeg" alt="Slide 4"></div>
                 <div class="slide"><img src="image/slide5.jpeg" alt="Slide 5"></div>
@@ -341,8 +183,7 @@
             </div>
         </div>
 
-        
-        <div class="notices-content"></div>
+
 
         <nav class="navbar">
             <div class="nav-item">
@@ -363,33 +204,24 @@
         </nav>
     </div>
 
+    <script>
+        const slides = document.querySelector('.slides');
+        let currentIndex = 0;
+        const slideInterval = 3000; 
+        const totalSlides = document.querySelectorAll('.slide').length;
 
+        function showNextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides; 
+            slides.style.transition = 'transform 0.5s ease-in-out'; 
+            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+        
+        
+
+        setInterval(showNextSlide, slideInterval);
+    </script>
 
     <script>
-        // slider
-        // const slides = document.querySelectorAll('.slides');
-        // const auto = true;
-        // const intervalTime = 5000;
-        // let slideInterval;
-
-        // const nextSlide = () => {
-        //     const current = document.querySelector('.current');
-        //     current.classList.remove('current');
-        //     if (current.nextElementSibling) {
-        //         current.nextElementSibling.classList.add('current');
-        //     } else {
-         //        slides[0].classList.add('current'); // Restart the slider from the first slide
-        //     }
-        // };
-
-        // Automatically move the slider every 5 seconds
-        // if (auto) {
-        //     slideInterval = setInterval(nextSlide, intervalTime);
-        // }
-
-       
-
-        // Buttons         
         document.getElementById('community-problems').addEventListener('click', function() {
             console.log("Go to Community problem page");
             window.location.href = 'list1.html';
@@ -400,7 +232,6 @@
             window.location.href = 'list2.html';
         });
 
-        // Quotes
         const quotes = [
             '"Building strong communities through shared support"',
             '"Together we can make a difference"',
@@ -421,80 +252,7 @@
             }, 500);
         }
 
-        setInterval(changeQuote, 5000); // Change quote every 5 seconds
-        
-        
-        function toggleDetails(element) {
-            const details = element.querySelector('.notice-details');
-            if (details.style.display === 'none' || !details.style.display) {
-                details.style.display = 'block';
-                const mapContainer = details.querySelector('.notice-map');
-                if (mapContainer) {
-                    initializeMap(mapContainer.id, element.dataset.location);
-                }
-            } else {
-                details.style.display = 'none';
-            }
-        }
-
-        function initializeMap(mapId, location) {
-            if (!initializedMaps[mapId]) {
-                const map = L.map(mapId).setView([17.604461, 78.486784], 13);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; OpenStreetMap contributors'
-                }).addTo(map);
-                const loc = JSON.parse(location);
-                L.marker([loc.lat, loc.lng]).addTo(map);
-                initializedMaps[mapId] = map;
-            }
-        }
-        function createNoticeItem(issue, index) {
-            const noticeItem = document.createElement('div');
-            noticeItem.classList.add('notice-item');
-            noticeItem.setAttribute('onclick', 'toggleDetails(this)');
-            noticeItem.dataset.location = JSON.stringify(issue.location);
-            noticeItem.innerHTML = `
-                <div class="notice-summary">
-                    <h2>${issue.issueName}</h2>
-                    <p>${issue.description.substring(0, 30)}...</p>
-                    <button class="delete-button" onclick="deleteIssue(event, ${index}, ${issue.postId})">Delete</button>
-                </div>
-                <div class="notice-details" style="display: none;">
-                    <p><strong>Description:</strong> ${issue.description}</p>
-                    <div class="notice-map" id="map-${issue.postId}"></div>
-                    ${issue.image ? `<div class="notice-image"><img src="${issue.image}" alt="Issue Image"></div>` : ''}
-                </div>
-            `;
-            return noticeItem;
-        }
-
-        async function deleteIssue(event, index, postId) {
-            event.stopPropagation();
-            await deleteIssueFromDB(postId);
-            issues.splice(index, 1);
-            //localStorage.setItem('issues_post', JSON.stringify(issues));
-            renderNotices();
-        }
-
-        function renderNotices() {
-            const noticesContent = document.querySelector('.notices-content');
-            noticesContent.innerHTML = '';
-            console.log('render log', issues);
-            issues.forEach((issue, index) => {
-                const noticeItem = createNoticeItem(issue, index);
-                noticesContent.appendChild(noticeItem);
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            const email = localStorage.getItem('userEmail');
-            if (email) {
-                getIssuesOfUser(email);
-                renderNotices(); 
-            } else {
-                console.error("No user email found in localStorage");
-            }
-        });
+        setInterval(changeQuote, 5000); 
     </script>
 </body>
 </html>

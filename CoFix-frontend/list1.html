@@ -32,6 +32,7 @@
             width: 90%;
             text-align: center;
             margin-top: 20px;
+            padding-bottom: 80px;
         }
 
         .issue-selector {
@@ -82,20 +83,21 @@
 
         .navbar {
             position: fixed;
-            bottom: -60px; /* Initially hide the navbar */
+            bottom: 0; /* Position the navbar at the bottom */
             width: 100%;
             display: flex;
             justify-content: space-around;
             background-color: white;
             padding: 10px 0;
             box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-            transition: bottom 0.3s ease; /* Smooth transition */
+            /* Removed transition since it won't move */
         }
 
         .navbar:hover {
             bottom: 0; /* Show the navbar on hover */
         }
 
+        
         .nav-item {
             display: flex;
             flex-direction: column;
