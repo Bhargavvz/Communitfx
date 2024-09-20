@@ -1,0 +1,112 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #a8e3e3, #79d3d3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #004d4d;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px; /* Set a maximum width for the form */
+    padding: 20px;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(to bottom, #a8e3e3, #79d3d3);
+    border-radius: 10px 10px 0 0;
+}
+
+header .back-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+    margin-right: 10px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+}
+
+.form-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 300px; /* Ensure the form container is centered */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align all form elements */
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    width: 100%;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #004d4d;
+}
+
+.input-group input, .input-group select {
+    width: 280px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+.phone-input {
+    display: flex;
+    align-items: center;
+}
+
+.phone-input img {
+    width: 30px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.submit-btn {
+    background-color: #004d4d;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.submit-btn:hover {
+    background-color: #003333;
+}

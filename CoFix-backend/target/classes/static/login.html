@@ -1,0 +1,83 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login - CoFix</title>
+        <link rel="stylesheet" href="css/login.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="logo-container">
+                <img src="image/logos.png" alt="CoFix Logo" class="logo">
+            </div>
+            <div class="form-container">
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="icon">&#9993;</span>
+                            <input type="email" id="email" placeholder="Username@gmail.com" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <span class="icon">&#128274;</span>
+                            <input type="password" id="password" placeholder="Password" required>
+                            <span class="show-password">&#128065;</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="login-btn">Login</button>
+                    <div class="extra-links">
+                        <a href="#" class="signup-link">Signup</a>
+                        <a href="#" class="forgot-password-link">Forgot Password?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="js/config.js"></script>
+        <script>
+            document.getElementById('loginForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                console.log("Form submitted");
+
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                console.log('Email:', email); 
+                console.log('Password:', password); 
+                const apiBaseUrl = await getApiBaseUrl();
+                const response = await fetch(apiBaseUrl+"/api/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams({
+                        email: email,
+                        password: password,
+                    }),
+                });
+                console.log("Received response successfully", response.status);
+                localStorage.setItem('userEmail', email);
+                console.log("Email is stored in localstorage");
+                if (response.ok) {
+                    const responseData = await response.text();
+                    console.log("Response ok: " + responseData);
+                    alert("Login Successful");
+                    localStorage.setItem('accountData', JSON.stringify(responseData));
+                    window.location.href = 'home.html';
+                } else {
+                    const responseData = await response.text();
+                    console.log("Response not ok: ", responseData);
+                    alert("Login failed");
+                }
+            });
+
+            document.querySelector('.signup-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'signup.html';
+            });
+        </script>
+    </body>
+    </html>

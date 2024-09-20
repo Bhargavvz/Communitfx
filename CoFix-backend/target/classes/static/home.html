@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communitfx Home</title>
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Home</h1>
+        </header>
+        <div class="logo">
+            <img src="image/logos.png" alt="Communitfx Logo">
+        </div>
+        <div class="main-content">
+            <div class="report-section">
+                <p id="quote">"Building strong communities through shared support"</p>
+            </div>
+        </div>
+        <div class="services">
+            <h3>Services</h3>
+            <div class="service-icons">
+                <button class="service-icon" id="community-problems">Community Problem</button>
+                <button class="service-icon" id="government-schemes">Government Schemes</button>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="nav-item">
+                <a href="home.html"><img src="image/home.png" alt="Home"></a><span>Home</span>
+            </div>
+            <div class="nav-item">
+                <a href="maps.html"><img src="image/placeholder.png" alt="Map"></a><span>Map</span>
+            </div>
+            <div class="nav-item">
+                <a href="list1.html"><img src="image/add.png" alt="Add"></a><span>Add</span>
+            </div>
+            <div class="nav-item">
+                <a href="notices.html"><img src="image/notice.png" alt="Notices"></a><span>Notices</span>
+            </div>
+            <div class="nav-item">
+                <a href="profile.html"><img src="image/user.png" alt="Add"></a><span>Profile</span>
+            </div>
+        </nav>
+    </div>
+    <script src="js/config.js"></script>
+    <script>
+        document.getElementById('community-problems').addEventListener('click', function() {
+            console.log("Go to Community problem page");
+            window.location.href = 'list1.html';
+        });
+
+        document.getElementById('government-schemes').addEventListener('click', function() {
+            console.log("Go to Government Schemes page");
+            window.location.href = 'list2.html';
+        });
+
+        const quotes = [
+            '"Building strong communities through shared support"',
+            '"Together we can make a difference"',
+            '"Empowering individuals, transforming communities"',
+            '"Unity in diversity for a better future"',
+            '"Strength in community, pride in our actions"'
+        ];
+
+        let currentQuoteIndex = 0;
+
+        function changeQuote() {
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            const quoteElement = document.getElementById('quote');
+            quoteElement.classList.remove('fade');
+            setTimeout(() => {
+                quoteElement.textContent = quotes[currentQuoteIndex];
+                quoteElement.classList.add('fade');
+            }, 500);
+        }
+
+        setInterval(changeQuote, 5000); // Change quote every 5 seconds
+    </script>
+</body>
+</html>

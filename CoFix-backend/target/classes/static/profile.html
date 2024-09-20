@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Communitfx</title>
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Profile</h1>
+        </header>
+        <img src="image/profile.png" alt="Profile Picture" class="profile-pic">
+        <div class="profile-section">
+            <h2 id="profileName">Loading...</h2>
+            <p id="profileDetails">Loading...</p>
+            <button class="edit-profile-btn" id="edit-profile">Edit profile information</button>
+            <button class="edit-profile-btn" id="logout">Logout</button>
+        </div>
+        <div class="profile-options">
+            <button class="profile-option-btn" onclick="window.location.href='help.html'">Help & Support</button>
+            <button class="profile-option-btn" onclick="window.location.href='contact.html'">Contact us</button>
+            <button class="profile-option-btn" onclick="window.location.href='privacy.html'">Privacy policy</button>
+        </div>        
+    </div>
+    <nav class="navbar">
+        <div class="nav-item">
+            <a href="home.html"><img src="image/home.png" alt="Home"></a><span>Home</span>
+        </div>
+        <div class="nav-item">
+            <a href="maps.html"><img src="image/placeholder.png" alt="Map"></a><span>Map</span>
+        </div>
+        <div class="nav-item">
+            <a href="list1.html"><img src="image/add.png" alt="Add"></a><span>Add</span>
+        </div>
+        <div class="nav-item">
+            <a href="notices.html"><img src="image/notice.png" alt="Notices"></a><span>Notices</span>
+        </div>
+        <div class="nav-item">
+            <a href="profile.html"><img src="image/user.png" alt="Add"></a><span>Profile</span>
+        </div>
+    </nav>
+    <script src="js/config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // try {
+                const emu = localStorage.getItem('userEmail');
+                if (!emu) {
+                    console.error("No email found in local storage");
+                    alert("Need to login before");
+                    window.location.href = 'profile.html';
+                    return;
+                } else {
+                    console.log('Emailo is thie:'+emu);
+                }
+                const apiBaseUrl = await getApiBaseUrl();
+                const url = new URL(apiBaseUrl+'/api/profile');
+                url.searchParams.append('email', emu);
+                const response = await fetch(url, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                console.log("HTTP Status Code:", response.status);
+                if (response.ok) {
+                    const profile  = await response.json();
+                    console.log("Response Data:", profile);
+        
+                    document.getElementById('profileName').textContent = profile.name;
+                    document.getElementById('profileDetails').textContent = `${profile.email} | PhNo: ${profile.phoneNumber}`; //profile.email;
+                } else {
+                    console.error("Failed to fetch profile data");
+                }
+            // } catch (error) {
+            //     console.error("Error:", error);
+            // }
+        });
+        document.getElementById('edit-profile').addEventListener('click', function() {
+            console.log("Go to Edit page");
+            window.location.href = 'edit.html';
+        });
+
+        document.getElementById('logout').addEventListener('click', function() {
+            console.log("Logging out");
+            localStorage.removeItem('userEmail');
+            window.location.href = 'login.html';
+        });
+
+    </script>
+</body>
+</html>

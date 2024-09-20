@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notices</title>
+    <link rel="stylesheet" href="css/notices.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Notices</h1>
+        </header>
+        <div class="notices-content">
+            <!-- Notice items will be inserted here by JavaScript -->
+        </div>
+        <nav class="navbar">
+            <div class="nav-item">
+                <a href="home.html"><img src="image/home.png" alt="Home"></a><span>Home</span>
+            </div>
+            <div class="nav-item">
+                <a href="maps.html"><img src="image/placeholder.png" alt="Map"></a><span>Map</span>
+            </div>
+            <div class="nav-item">
+                <a href="list1.html"><img src="image/add.png" alt="Add"></a><span>Add</span>
+            </div>
+            <div class="nav-item">
+                <a href="notices.html"><img src="image/notice.png" alt="Notices"></a><span>Notices</span>
+            </div>
+            <div class="nav-item">
+                <a href="profile.html"><img src="image/user.png" alt="Add"></a><span>Profile</span>
+            </div>
+        </nav>
+    </div>
+    <script src="js/config.js"></script>
+    <script>
+        let issues = [];
+        let initializedMaps = {};
+        async function getIssuesOfUser(email) {
+            const apiBaseUrl = await getApiBaseUrl();
+            const url = new URL(apiBaseUrl+'/api/profile/issues');
+            url.searchParams.append('email', email);
+        
+            try {
+                const issues_response = await fetch(url, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+            
+                console.log("+++++++++++++++++++HTTP Status Code of Issues of User:", issues_response.status);
+            
+                if (issues_response.ok) {
+                    const user_issues = await issues_response.json();
+                    console.log("Logging user issues Data:", user_issues);
+                    user_issues.forEach(userIssue => {
+                        console.log("logEach Issue i:", userIssue);
+                        issues.push(userIssue);
+                    });
+                } else {
+                    console.error("Failed to fetch profile data");
+                }
+            } catch (error) {
+                console.error("Error fetching issues:", error);
+            }
+            renderNotices();
+        }
+
+        async function deleteIssueFromDB(postId) {
+            try {
+                const apiBaseUrl = await getApiBaseUrl();
+                const response = await fetch(`${apiBaseUrl}/api/profile/issues/${postId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+            
+                if (response.ok) {
+                    console.log(`Issue with ID ${postId} deleted successfully`);
+                    alert("Issue deleted from DB successfully");
+                } else {
+                    console.error(`Failed to delete issue with ID ${postId}`);
+                }
+            } catch (error) {
+                console.error("Error deleting issue:", error);
+            }
+        }
+
+
+
+        function toggleDetails(element) {
+            const details = element.querySelector('.notice-details');
+            if (details.style.display === 'none' || !details.style.display) {
+                details.style.display = 'block';
+                const mapContainer = details.querySelector('.notice-map');
+                if (mapContainer) {
+                    initializeMap(mapContainer.id, element.dataset.location);
+                }
+            } else {
+                details.style.display = 'none';
+            }
+        }
+
+        function initializeMap(mapId, location) {
+            if (!initializedMaps[mapId]) {
+                const map = L.map(mapId).setView([17.604461, 78.486784], 13);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
+                const loc = JSON.parse(location);
+                L.marker([loc.lat, loc.lng]).addTo(map);
+                initializedMaps[mapId] = map;
+            }
+        }
+        function createNoticeItem(issue, index) {
+            const noticeItem = document.createElement('div');
+            noticeItem.classList.add('notice-item');
+            noticeItem.setAttribute('onclick', 'toggleDetails(this)');
+            noticeItem.dataset.location = JSON.stringify(issue.location);
+            noticeItem.innerHTML = `
+                <div class="notice-summary">
+                    <h2>${issue.issueName}</h2>
+                    <p>${issue.description.substring(0, 30)}...</p>
+                    <button class="delete-button" onclick="deleteIssue(event, ${index}, ${issue.postId})">Delete</button>
+                </div>
+                <div class="notice-details" style="display: none;">
+                    <p><strong>Description:</strong> ${issue.description}</p>
+                    <div class="notice-map" id="map-${issue.postId}"></div>
+                    ${issue.image ? `<div class="notice-image"><img src="${issue.image}" alt="Issue Image"></div>` : ''}
+                </div>
+            `;
+            return noticeItem;
+        }
+
+        async function deleteIssue(event, index, postId) {
+            event.stopPropagation();
+            await deleteIssueFromDB(postId);
+            issues.splice(index, 1);
+            //localStorage.setItem('issues_post', JSON.stringify(issues));
+            renderNotices();
+        }
+
+        function renderNotices() {
+            const noticesContent = document.querySelector('.notices-content');
+            noticesContent.innerHTML = '';
+            console.log('render log', issues);
+            issues.forEach((issue, index) => {
+                const noticeItem = createNoticeItem(issue, index);
+                noticesContent.appendChild(noticeItem);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const email = localStorage.getItem('userEmail');
+            if (email) {
+                getIssuesOfUser(email);
+                renderNotices(); 
+            } else {
+                console.error("No user email found in localStorage");
+            }
+        });
+
+    </script>
+</body>
+</html>

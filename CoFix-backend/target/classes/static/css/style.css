@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, #a8e3e3, #79d3d3);
+    height: 110vh;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-left: 60px;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+    font-weight: 700;
+    margin-left: 20px;
+}
+
+.back-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.main-content {
+    width: 90%;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.content-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.content-section h2, .content-section h3 {
+    color: #004d4d;
+}
+
+.content-section p {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.content-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.content-section ul li {
+    margin-bottom: 10px;
+}
+
+.content-section ul li a {
+    color: #00796b;
+    text-decoration: none;
+}
+
+.content-section ul li a:hover {
+    text-decoration: underline;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+form label {
+    margin-bottom: 5px;
+    color: #004d4d;
+}
+
+form input, form textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 95%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: #00796b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #004d4d;
+}

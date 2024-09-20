@@ -1,0 +1,169 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #a8e3e3, #79d3d3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    color: #004d4d;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: relative; /* Allow positioning of back button */
+}
+
+header .back-button {
+    position: absolute;
+    left: 30px;
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+header .back-button img {
+    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+}
+
+.section {
+    padding: 20px;
+    margin: 10px 0;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Reduce the width of the container */
+    max-width: 350px; /* Set a max width */
+}
+
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align form elements */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: left;
+    width: 100%; /* Make labels full width */
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensure padding does not affect width */
+}
+
+.back-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+button.btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+button.btn:hover {
+    background-color: #0056b3;
+}
+
+.map {
+    height: 200px;
+    background: url('https://via.placeholder.com/400x200') no-repeat center center;
+    background-size: cover;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    width: 100%; /* Make map responsive */
+}
+
+.photo-upload {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.photo-upload img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px dashed #ccc;
+    cursor: pointer; /* Make it clear the image is clickable */
+}
+
+.navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; /* Center align text */
+}
+
+.nav-item img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.nav-item span {
+    font-size: 12px;
+    color: #004d4d;
+}
