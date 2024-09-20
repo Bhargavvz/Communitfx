@@ -120,7 +120,7 @@ header h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center; /* Center align text */
+    text-align: center; 
 }
 
 .nav-item img {
