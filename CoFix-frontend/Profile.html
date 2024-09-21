@@ -65,7 +65,7 @@
                 console.log("HTTP Status Code:", response.status);
                 if (response.ok) {
                     const profile  = await response.json();
-                    console.log("Response Data:", profile);
+                    // console.log("Response Data:", profile);
         
                     document.getElementById('profileName').textContent = profile.name;
                     document.getElementById('profileDetails').textContent = `${profile.email} | PhNo: ${profile.phoneNumber}`; //profile.email;

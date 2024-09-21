@@ -54,6 +54,7 @@
             height: 100%;
             position: absolute;
             object-fit: cover;  
+            border-radius: 10px;
         }
 
         .slider .slides img:not(.active) {
@@ -281,7 +282,7 @@
         }
         // auto sliding
         function autoSliding() {
-            deleteInterval = setInterval(timer, 2250);
+            deleteInterval = setInterval(timer, 3000);
             function timer() {
                 slideNext();
             }

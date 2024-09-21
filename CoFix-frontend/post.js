@@ -37,7 +37,7 @@ async function getIssuesOfUser(email){
 
 // Function to add a marker to the map
 function addIssueToMap(issue) {
-  console.log("=======================Logging each issue: ", issue);
+  // console.log("=======================Logging each issue: ", issue);   
   const { issueName, description, location, image } = issue;
   console.log("Trying to log issueName: " + location);
   if (location && location.lat && location.lng) {
@@ -96,7 +96,7 @@ document.getElementById('post-button').addEventListener('click', function () {
   })
   .then(response => response.text()) // Updated to handle plain text response
   .then(data => {
-    console.log('Success:', data);
+    // console.log('Success:', data);
     //issues.push(issue);
     //localStorage.setItem('issues_post', JSON.stringify(issues));
     addIssueToMap(issue);
