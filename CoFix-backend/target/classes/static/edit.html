@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Communitfx</title>
+    <link rel="stylesheet" href="css/edit.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="back-btn" onclick="window.history.back();">&larr;</button>
+            <h1>Edit profile</h1>
+        </header>
+        <div class="form-container">
+            <form id="edit-profile-form">
+                <div class="input-group">
+                    <label for="full-name">Full name</label>
+                    <input type="text" id="full-name" placeholder="Puerto Rico" required>
+                </div>
+                <div class="input-group">
+                    <label for="nick-name">Nick name</label>
+                    <input type="text" id="nick-name" placeholder="puerto_rico" required>
+                </div>
+                <div class="input-group">
+                    <label for="label">Label</label>
+                    <input type="text" id="label" placeholder="youremail@domain.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="phone-number">Phone number</label>
+                    <div class="phone-input">
+                        <img src="image/call.png" alt="Flag">
+                        <input type="tel" id="phone-number" placeholder="123-456-7890" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="country">Country</label>
+                    <select id="country" required>
+                        <option value="United States">United States</option>
+                      <option value="Canada">Canada</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Germany">Germany</option>
+                        <option value="France">France</option>
+                        <option value="India">India</option>
+                        <option value="China">China</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="Mexico">Mexico</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Russia">Russia</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="Sweden">Sweden</option>
+                        <option value="South Korea">South Korea</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Nigeria">Nigeria</option>
+                        <option value="Egypt">Egypt</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="genre">Genre</label>
+                    <select id="genre" required>
+                       <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Non-Binary">Non-Binary</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" placeholder="45 New Avenue, New York" required>
+                </div>
+                <button type="submit" class="submit-btn">SUBMIT</button>
+            </form>
+        </div>
+    </div>
+    <script src="js/config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const email = localStorage.getItem('userEmail');
+            if (!email) {
+                console.error("No email found in local storage");
+                return;
+            }
+            const apiBaseUrl = await getApiBaseUrl();
+            const url = new URL(apiBaseUrl+'/api/profile');
+            url.searchParams.append('email', email);
+
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer your-token-here'
+                }
+            });
+            console.log("ProfileEdit HTTP Status Code:", response.status);
+            if (response.ok) {
+                const profile = await response.json();
+                console.log("Response profie", profile);
+
+                document.getElementById('full-name').value = profile.name;
+                document.getElementById('nick-name').value = profile.nickName;
+                document.getElementById('label').value = profile.email;
+                document.getElementById('phone-number').value = profile.phoneNumber;
+                document.getElementById('country').value = profile.country;
+                document.getElementById('genre').value = profile.gender;
+                document.getElementById('address').value = profile.address;
+            }  else{
+                throw new Error('Network response was not ok.');
+            }
+
+            document.getElementById('edit-profile-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const updatedProfile = {
+                    email: document.getElementById('label').value,
+                    name: document.getElementById('full-name').value,
+                    nickName: document.getElementById('nick-name').value,
+                    phoneNumber: document.getElementById('phone-number').value,
+                    country: document.getElementById('country').value,
+                    gender: document.getElementById('genre').value,
+                    address: document.getElementById('address').value
+                };
+                console.log("Updated profile:" + updatedProfile);
+                const apiBaseUrl = getApiBaseUrl();
+                fetch(apiBaseUrl+'/api/profile/update', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer your-token-here'
+                    },
+                    body: JSON.stringify(updatedProfile)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error('Network response was not ok.');
+                        }
+                    })
+                    .then(data => {
+                        console.log('Profile updated successfully:', data);
+                        alert("Profile details updated successufully");
+                        console.log("Go to Profile page");
+                        window.location.href = 'profile.html';
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                    });
+            });
+        });
+    </script>			
+</body>
+</html>

@@ -1,0 +1,78 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #f0f4f3;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.navbar a{
+    text-decoration: none;
+    color: black;
+}
+
+.logo h1 {
+    font-size: 48px;
+    color: #79a87d;
+    margin: 0;
+    padding-top: 80px;
+}
+
+.logo-image {
+    width: 100px;
+    margin: 20px 0;
+}
+
+.app-name {
+    font-size: 24px;
+    color: #79a87d;
+    margin: 0;
+}
+
+.signup-button {
+    background: linear-gradient(to right, #79a87d, #97c6a0);
+    padding: 20px;
+    border-radius: 25px 25px 0 0;
+    margin-top: 80px;
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.signup-button button {
+    background: white;
+    border: none;
+    border-radius: 25px;
+    color: #79a87d;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.signup-button button:hover {
+    background: #f0f4f3;
+}
+
+.signup-button p {
+    margin-top: 20px;
+    font-size: 14px;
+    color: white;
+}
+
+.signup-button a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-button a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoFix Sign Up</title>
+    <link rel="stylesheet" href="css/page.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>CoFix</h1>
+            <img src="image/logo.webp" alt="Communitix Logo" class="logo-image">
+            <p class="app-name">Communitix</p>
+        </div>
+        <div class="signup-button">
+            <button id="signup-page" >Sign Up</button>
+            <p>Already have an account? <a href="#" class="login-link">Log in instead!</a></p>
+        </div>
+    </div>
+    
+    <script>
+        document.querySelector('.login-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = 'login.html';
+        });
+
+        document.getElementById('signup-page').addEventListener('click', function() {
+            console.log("Go to Signup page");
+            window.location.href = 'signup.html';
+        });
+    </script>
+</body>
+</html>

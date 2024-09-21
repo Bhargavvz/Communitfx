@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoFix Sign Up</title>
+    <link rel="stylesheet" href="css/signup.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="image/logo2.png" alt="CoFix Logo" id="logo">
+        </header>
+        <div class="form-container">
+            <h2>Welcome;)</h2>
+            <form id="signupForm">
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+                <div class="terms">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I accept the <a href="#">terms and conditions</a></label>
+                </div>
+                <button type="submit">SIGN UP</button>
+                 <p>Already have an account? <a href="login.html">Log in here</a></p>
+            </form>
+	  
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const name = formData.get("name");
+            const email = formData.get("email");
+            const password = formData.get("password");
+
+            try {
+                const apiBaseUrl = await getApiBaseUrl();
+                const response = await fetch(apiBaseUrl+"/api/signup", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams({
+                        name: name,
+                        email: email,
+                        password: password,
+                    }),
+                });
+
+                if (response.ok) {
+                    alert("Sign-up successful");
+                    window.location.href = 'login.html';
+                } else {
+                    alert("Sign-up failed");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Sign-up failed");
+            }
+        });
+    </script>
+</body>
+</html>
