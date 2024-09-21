@@ -9,6 +9,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
+            box-sizing: border-box;
             /* overflow: hidden; Remove this line */
         }
         
@@ -36,33 +37,51 @@
 
         .slider {
             position: relative;
-            width: 80%; /* Keep this width or adjust as needed */
-            max-width: 800px; /* Set a max width for larger screens */
-            margin: 40px auto; /* Center the slider horizontally */
-            height: 300px; 
+            width: 400px;
+            height: 450px;
+        }
+
+        .slider .slides {
+            width: 100%;
+            height: calc(100% - 40px);
+            position: relative;
             overflow: hidden;
-            border-radius: 10px;
-            margin-left: 790px;
         }
 
-        .slides {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            width: calc(100% * 5); 
+        .slider .slides img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            object-fit: cover;  
         }
 
-        .slide {
-            width: 100%; 
-            flex-shrink: 0;
+        .slider .slides img:not(.active) {
+            top: 0;
+            left: -100%;
         }
 
-        .slide img {
-            width: 340px;
-            height: auto; 
-            object-fit: cover;
-            border-radius: 10px;
+        span.next, span.prev {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 14px;
+            color: #eee;
+            font-size: 24px;
+            font-weight: bold;
+            transition: 0.5s;
+            border-radius: 3px;
+            user-select: none;
+            cursor: pointer;
+            z-index: 1;
         }
 
+        span.next {
+            right: 20px;
+        }
+
+        span.left {
+            left:20px;
+        }
        
         .services {
             width: 90%;
@@ -149,6 +168,23 @@
             
         }
 
+        @keyframes next1 {
+            from {
+                left: 0%;
+            }
+            to {
+                left: -100%;
+            }
+        }
+        @keyframes next2 {
+            from {
+                left: 100%;
+            }
+            to {
+                left: 0%;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -158,10 +194,15 @@
         </div>
         <div class="slider">
             <div class="slides">
-                <div class="slide"><img src="image/slide2.jpeg" alt="Slide 2"></div>
-                <div class="slide"><img src="image/slide3.jpeg" alt="Slide 3"></div>
-                <div class="slide"><img src="image/slide4.jpeg" alt="Slide 4"></div>
-                <div class="slide"><img src="image/slide5.jpeg" alt="Slide 5"></div>
+                <img src="image/slide2.jpeg" alt="Slide 2" class="active">
+                <img src="image/slide3.jpeg" alt="Slide 3">
+                <img src="image/slide4.jpeg" alt="Slide 4">
+                <img src="image/slide5.jpeg" alt="Slide 5">
+            </div>
+
+            <div class="buttons">
+                <span class="next">&#10095</span>
+                <span class="prev">&#10094</span>
             </div>
         </div>
         <div class="services">
@@ -206,20 +247,50 @@
     </div>
 
     <script>
-        const slides = document.querySelector('.slides');
-        let currentIndex = 0;
-        const slideInterval = 3000; 
-        const totalSlides = document.querySelectorAll('.slide').length;
+        // const slides = document.querySelector('.slides');
+        // let currentIndex = 0;
+        // const slideInterval = 3000; 
+        // const totalSlides = document.querySelectorAll('.slide').length;
 
-        function showNextSlide() {
-            currentIndex = (currentIndex + 1) % totalSlides; 
-            slides.style.transition = 'transform 0.5s ease-in-out'; 
-            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+        // function showNextSlide() {
+            // currentIndex = (currentIndex + 1) % totalSlides; 
+            // slides.style.transition = 'transform 0.5s ease-in-out'; 
+            // slides.style.transform = `translateX(-${currentIndex * 50}%)`;
+        //}
+        
+        
+
+        // setInterval(showNextSlide, slideInterval);
+
+        let slideImages = document.querySelectorAll(".slides img");
+        let next = document.querySelector('.next');
+        let prev = document.querySelector('.prev');
+
+        let counter = 0;
+
+        next.addEventListener('click', slideNext);
+        function slideNext() {
+            slideImages[counter].style.animation = 'next1 0.5s ease-in forwards';
+            if (counter >= slideImages.length-1) {
+                counter = 0;
+            } else {
+                counter++;
+            }
+            slideImages[counter].style.animation = 'next2 0.5s ease-in forwards';
         }
-        
-        
+        // auto sliding
+        function autoSliding() {
+            deleteInterval = setInterval(timer, 2250);
+            function timer() {
+                slideNext();
+            }
+        }
+        autoSliding();
 
-        setInterval(showNextSlide, slideInterval);
+        const container = document.querySelector('.slide-container');
+        container.addEventListener('mouseover', function() {
+            clearInterval(deleteInterval);
+        });
     </script>
 
     <script>
