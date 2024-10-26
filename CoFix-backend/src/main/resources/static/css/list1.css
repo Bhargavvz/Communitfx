@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: hsla(180, 46%, 60%, 0.5);
+    overflow-y: auto; /* Allow scrolling */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px; /* Space for navbar */
+}
+
+
+.header {
+    background-color: #004d4d;
+    color: white;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.main-content {
+    width: 90%;
+    text-align: center;
+    margin-top: 20px;
+    padding-bottom: 80px;
+}
+
+.issue-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.issue-button {
+    width: 250px; /* Adjust button width */
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100px;
+}
+
+.issue-button img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.issue-button span {
+    margin-top: 5px;
+    color: #004d4d;
+    font-size: 14px;
+}
+
+.issue-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.issue-button:hover span {
+    color: #fff;
+}
+
+.navbar {
+    position: fixed;
+    bottom: 0; /* Position the navbar at the bottom */
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    /* Removed transition since it won't move */
+}
+
+.navbar:hover {
+    bottom: 0; /* Show the navbar on hover */
+}
+
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.nav-item img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.nav-item span {
+    font-size: 12px;
+    color: #004d4d;
+}

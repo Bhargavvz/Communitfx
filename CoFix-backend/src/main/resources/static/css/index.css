@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+header, footer {
+    position: fixed;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.504); /* Translucent background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure it stays on top */
+}
+
+header {
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+}
+
+footer {
+    bottom: 0;
+    text-align: center;
+    padding: 10px 20px;
+}
+
+.menu-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.menu-bar img {
+    height: 50px;
+    margin-right: 20px;
+}
+
+.menu-bar ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-bar ul li {
+    margin-left: 5px;
+}
+
+.menu-bar ul li a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    padding: 5px 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.menu-bar ul li a:hover {
+    background-color: #00a52c3d;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.hero {
+    text-align: center;
+    padding: 0;
+    background-color: #fff;
+    background-size: cover; /* Ensure the background image covers the whole section */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat;
+    height: 100vh; /* Make the section take up the full height of the viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff; /* Adjust text color for visibility */
+}
+
+.hero h1 {
+    margin: 0 0 20px;
+    font-size: 2em; /* Increase font size for better visibility */
+    color: #fff; /* Ensure text is visible against the background */
+}
+
+.hero p {
+    font-size: 1.2em; /* Increase font size for better visibility */
+    color: #fff; /* Ensure text is visible against the background */
+}
+
+.hero#section1 {
+    background-image: url('image/image1.jpg'); /* Replace with your image path */
+}
+
+.hero#section2 {
+    background-image: url('image/image2.jpg'); /* Replace with your image path */
+}
+
+.hero#section3 {
+    background-image: url('image/image3.jpg'); /* Replace with your image path */
+}
+
+.buttons {
+    text-align: center;
+    padding: 20px;
+    background-color: transparent; /* Remove the white background */
+    box-shadow: none; /* Remove the shadow */
+}
+
+.btn {
+    text-decoration: none;
+    color: #fff;
+    background-color: #00791e89;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+/* Mobile specific styles */
+@media only screen and (max-width: 600px) {
+    .menu-bar ul {
+        flex-direction: row; /* Align items side by side */
+        align-items: center;
+    }
+
+    .menu-bar ul li {
+        margin-left: 10px;
+    }
+
+    .hero h1 {
+        font-size: 1.5em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    .btn {
+        padding: 10px;
+        margin: 5px;
+    }
+}

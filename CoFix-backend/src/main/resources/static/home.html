@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>example</title>
+    <link rel="stylesheet" href="css/home.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+            /* overflow: hidden; Remove this line */
+        }
+
+
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to bottom, #a8e3e3, #79d3d3);
+            padding-bottom: 80px;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .logo img {
+            width: 120px;
+            height: 120px;
+        }
+
+        .slider {
+            position: relative;
+            width: 400px;
+            height: 450px;
+        }
+
+        .slider .slides {
+            width: 100%;
+            height: calc(100% - 40px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider .slides img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .slider .slides img:not(.active) {
+            top: 0;
+            left: -100%;
+        }
+
+        span.next, span.prev {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 14px;
+            color: #eee;
+            font-size: 24px;
+            font-weight: bold;
+            transition: 0.5s;
+            border-radius: 3px;
+            user-select: none;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        span.next {
+            right: 20px;
+        }
+
+        span.left {
+            left:20px;
+        }
+
+        .services {
+            width: 90%;
+            text-align: center;
+        }
+
+        .services h3 {
+            margin: 0 0 20px 0;
+            font-size: 18px;
+            color: black;
+        }
+
+        .service-icons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .service-icon {
+            width: 40%;
+            background-color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #004d4d;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-icon img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .service-icon span {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #004d4d;
+        }
+
+        .service-icon:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .nav-item img {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item span {
+            font-size: 12px;
+            color: #004d4d;
+        }
+
+        .main-content {
+            width: 80%;
+
+        }
+
+        @keyframes next1 {
+            from {
+                left: 0%;
+            }
+            to {
+                left: -100%;
+            }
+        }
+        @keyframes next2 {
+            from {
+                left: 100%;
+            }
+            to {
+                left: 0%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="logo">
+        <img src="image/logos.png" alt="Communitfx Logo">
+    </div>
+    <div class="slider">
+        <div class="slides">
+            <img src="image/slide2.jpeg" alt="Slide 2" class="active">
+            <img src="image/slide3.jpeg" alt="Slide 3">
+            <img src="image/slide4.jpeg" alt="Slide 4">
+            <img src="image/slide5.jpeg" alt="Slide 5">
+        </div>
+
+        <div class="buttons">
+            <span class="next">&#10095</span>
+            <span class="prev">&#10094</span>
+        </div>
+    </div>
+    <div class="services">
+        <h3>SERVICES</h3>
+        <div class="service-icons">
+            <button class="service-icon" id="community-problems">
+                <img src="image/community2.jpeg" alt="Community Problems">
+                <span>Community Problems</span>
+            </button>
+            <button class="service-icon" id="government-schemes">
+                <img src="image/goverment_schemes.jpeg" alt="Government Schemes">
+                <span>Government Schemes</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="report-section">
+            <p id="quote">"Building strong communities through shared support"</p>
+        </div>
+    </div>
+
+
+
+    <nav class="navbar">
+        <div class="nav-item">
+            <a href="home.html"><img src="image/home.png" alt="Home"></a><span>Home</span>
+        </div>
+        <div class="nav-item">
+            <a href="maps.html"><img src="image/placeholder.png" alt="Map"></a><span>Map</span>
+        </div>
+        <div class="nav-item">
+            <a href="list1.html"><img src="image/add.png" alt="Add"></a><span>Add</span>
+        </div>
+        <div class="nav-item">
+            <a href="notices.html"><img src="image/notice.png" alt="Notices"></a><span>Notices</span>
+        </div>
+        <div class="nav-item">
+            <a href="Profile.html"><img src="image/user.png" alt="Profile"></a><span>Profile</span>
+        </div>
+    </nav>
+</div>
+
+<script>
+    // const slides = document.querySelector('.slides');
+    // let currentIndex = 0;
+    // const slideInterval = 3000;
+    // const totalSlides = document.querySelectorAll('.slide').length;
+
+    // function showNextSlide() {
+    // currentIndex = (currentIndex + 1) % totalSlides;
+    // slides.style.transition = 'transform 0.5s ease-in-out';
+    // slides.style.transform = `translateX(-${currentIndex * 50}%)`;
+    //}
+
+
+
+    // setInterval(showNextSlide, slideInterval);
+
+    let slideImages = document.querySelectorAll(".slides img");
+    let next = document.querySelector('.next');
+    let prev = document.querySelector('.prev');
+
+    let counter = 0;
+
+    next.addEventListener('click', slideNext);
+    function slideNext() {
+        slideImages[counter].style.animation = 'next1 0.5s ease-in forwards';
+        if (counter >= slideImages.length-1) {
+            counter = 0;
+        } else {
+            counter++;
+        }
+        slideImages[counter].style.animation = 'next2 0.5s ease-in forwards';
+    }
+    // auto sliding
+    function autoSliding() {
+        deleteInterval = setInterval(timer, 3000);
+        function timer() {
+            slideNext();
+        }
+    }
+    autoSliding();
+
+    const container = document.querySelector('.slide-container');
+    container.addEventListener('mouseover', function() {
+        clearInterval(deleteInterval);
+    });
+</script>
+
+<script>
+    document.getElementById('community-problems').addEventListener('click', function() {
+        console.log("Go to Community problem page");
+        window.location.href = 'list1.html';
+    });
+
+    document.getElementById('government-schemes').addEventListener('click', function() {
+        console.log("Go to Government Schemes page");
+        window.location.href = 'list2.html';
+    });
+
+    const quotes = [
+        '"Building strong communities through shared support"',
+        '"Together we can make a difference"',
+        '"Empowering individuals, transforming communities"',
+        '"Unity in diversity for a better future"',
+        '"Strength in community, pride in our actions"'
+    ];
+
+    let currentQuoteIndex = 0;
+
+    function changeQuote() {
+        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+        const quoteElement = document.getElementById('quote');
+        quoteElement.classList.remove('fade');
+        setTimeout(() => {
+            quoteElement.textContent = quotes[currentQuoteIndex];
+            quoteElement.classList.add('fade');
+        }, 500);
+    }
+
+    setInterval(changeQuote, 5000);
+</script>
+</body>
+</html>

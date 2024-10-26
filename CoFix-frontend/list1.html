@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Problems</title>
+    <link rel="stylesheet" href="list1.css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-text"><b>COMMUNITY PROBLEMS</b></div>
+        </header>
+        <main class="main-content">
+            <div class="issue-selector">
+                <h2><b>SELECT THE TYPE OF ISSUE</b></h2>
+                <button class="issue-button">
+                    <img src="image/electricity.jpeg" alt="Electricity or Streetlights">
+                    <span><b>ELECTRICITY OR STREETLIGHTS</b></span>
+                </button>
+                <button class="issue-button">
+                    <img src="image/drainage.jpeg" alt="Drainage System">
+                    <span><b>DRAINAGE SYSTEM</b></span>
+                </button>
+                <button class="issue-button">
+                    <img src="image/water.jpeg" alt="Water Supply">
+                    <span><b>WATER SUPPLY</b></span>
+                </button>
+                <button class="issue-button">
+                    <img src="image/waste management.jpeg" alt="Waste Management">
+                    <span><b>WASTE MANAGEMENT</b></span>
+                </button>
+                <button class="issue-button">
+                    <img src="image/road.jpeg" alt="Roads or Potholes">
+                    <span><b>ROADS OR POTHOLES</b></span>
+                </button>
+                <button class="issue-button">
+                    <img src="image/traffic.jpeg" alt="Transportation or Traffic">
+                    <span><b>TRANSPORTATION OR TRAFFIC</b></span>
+                </button>
+                <button class="issue-button">
+                    <img src="image/others.jpeg" alt="Other Issues">
+                    <span><b>OTHER ISSUES</b></span>
+                </button>
+            </div>
+        </main>
+        <nav class="navbar">
+            <div class="nav-item">
+                <a href="home.html"><img src="image/home.png" alt="Home"></a>
+                <span>Home</span>
+            </div>
+            <div class="nav-item">
+                <a href="maps.html"><img src="image/placeholder.png" alt="Map"></a>
+                <span>Map</span>
+            </div>
+            <div class="nav-item">
+                <a href="list1.html"><img src="image/add.png" alt="Add"></a>
+                <span>Add</span>
+            </div>
+            <div class="nav-item">
+                <a href="notices.html"><img src="image/notice.png" alt="Notices"></a>
+                <span>Notices</span>
+            </div>
+            <div class="nav-item">
+                <a href="Profile.html"><img src="image/user.png" alt="Profile"></a>
+                <span>Profile</span>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        document.querySelectorAll('.issue-button').forEach(button => {
+            button.addEventListener('click', function() {
+                console.log("Selected issue: ", this.querySelector('span').textContent.trim());
+                localStorage.setItem('selectedIssue', this.querySelector('span').textContent.trim());
+                
+                console.log("Redirecting to issue post page");
+                window.location.href = 'post.html';
+            });
+        });
+    </script>
+</body>
+</html>
