@@ -37,7 +37,7 @@ export default function IssueMap({ issues }: IssueMapProps) {
 
   return (
     <MapContainer
-      center={[center.lat, center.lng]}
+      center={[17.45563956150916, 78.66645358023057]}
       zoom={13}
       className="h-full w-full"
     >

@@ -76,18 +76,19 @@ export default function ReportIssueModal({ isOpen, onClose, onSubmit }: ReportIs
               <input
                 type="text"
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-md border-gray-800 shadow focus:border-indigo-500 focus:ring-indigo-500 p-2"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               />
             </div>
+
 
             <div>
               <label className="block text-sm font-medium text-gray-700">Description</label>
               <textarea
                 required
                 rows={4}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-md border-gray-800 shadow focus:border-indigo-500 focus:ring-indigo-500"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               />
@@ -96,7 +97,7 @@ export default function ReportIssueModal({ isOpen, onClose, onSubmit }: ReportIs
             <div>
               <label className="block text-sm font-medium text-gray-700">Urgency</label>
               <select
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow focus:border-indigo-500 focus:ring-indigo-500 p-3"
                 value={formData.urgency}
                 onChange={(e) => setFormData({ ...formData, urgency: e.target.value })}
               >
@@ -110,7 +111,7 @@ export default function ReportIssueModal({ isOpen, onClose, onSubmit }: ReportIs
               <label className="block text-sm font-medium text-gray-700">Location</label>
               <div className="mt-1 h-[300px] rounded-md overflow-hidden">
                 <MapContainer
-                  center={[37.7749, -122.4194]}
+                  center={[17.455598622434977, 78.66648576707394]}
                   zoom={13}
                   style={{ height: '100%', width: '100%' }}
                 >
@@ -135,7 +136,7 @@ export default function ReportIssueModal({ isOpen, onClose, onSubmit }: ReportIs
                   htmlFor="photo-upload"
                   className="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
                 >
-                  <Upload className="h-5 w-5 mr-2" />
+                  <Upload className="h-8 w-8 mr-2" />
                   Upload Photo
                 </label>
               </div>

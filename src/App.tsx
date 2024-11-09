@@ -8,7 +8,7 @@ import Home from './pages/Home';
 import CommunityIssues from './pages/CommunityIssues';
 import GovernmentSchemes from './pages/GovernmentSchemes';
 import Notices from './pages/Notices';
-// import Profile from './pages/Profile';
+import Profile from './pages/Profile';
 // import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
         <Route path="/issues" element={<CommunityIssues />} />
         <Route path="/schemes" element={<GovernmentSchemes />} />
         <Route path="/notices" element={<Notices />} />
+        <Route path="/Profile" element={<Profile/>} />
         
       </Routes>
     </Router>

@@ -14,7 +14,7 @@ export default function Navbar() {
           
           <div className="flex items-center space-x-4">
             <Link
-              to="/community-issues"
+              to="/maps"
               className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium flex items-center"
             >
               <AlertCircle className="h-4 w-4 mr-1" />

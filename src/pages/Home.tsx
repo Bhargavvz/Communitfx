@@ -1,9 +1,12 @@
 import React from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion';
-import { AlertCircle, Bell, CheckCircle, Clock } from 'lucide-react';
+import { AlertCircle, Bell, CheckCircle, Clock, Plus } from 'lucide-react';
 import DashboardLayout from '../components/DashboardLayout';
 import IssueMap from '../components/Map';
 import type { Issue } from '../types';
+import Button from '../components/Button';
 
 const mockIssues: Issue[] = [
   {
@@ -32,10 +35,33 @@ const mockIssues: Issue[] = [
   }
 ];
 
+
+
 export default function Home() {
   return (
     <DashboardLayout>
       <div className="space-y-6">
+        <h1 className="text-2xl font-bold text-gray-900">Did you come across an Issue?</h1>
+        <p className="mt-2 text-sm text-gray-700">
+          Report It!
+        </p>
+        <div className="flex">
+          <div className="mt-4 sm:mt-0 mr-2">
+              <Button icon={Plus}>
+                <Link to='/issues'>
+                  Raise a Community Issue
+                </Link>
+              </Button>
+            </div>
+          <div className="mt-4 sm:mt-0">
+            <Button icon={Plus}>
+              <Link to='/schemes'>
+                Raise a Government Scheme Issue
+              </Link>
+            </Button>
+          </div>
+        </div>
+          
         {/* Stats */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           <motion.div
@@ -97,6 +123,8 @@ export default function Home() {
             transition={{ delay: 0.2 }}
             className="bg-white overflow-hidden shadow rounded-lg"
           >
+
+
             <div className="p-5">
               <div className="flex items-center">
                 <div className="flex-shrink-0">

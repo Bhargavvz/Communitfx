@@ -129,6 +129,8 @@ export default function Index() {
           <IssueMap issues={mockIssues} />
         </div>
 
+        {/* backend -> mockissues notices pass to issue map */}
+
         {/* Footer */}
         <footer className="bg-white border-t">
           <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
